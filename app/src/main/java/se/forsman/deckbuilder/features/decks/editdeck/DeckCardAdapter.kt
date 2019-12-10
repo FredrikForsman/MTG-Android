@@ -1,0 +1,54 @@
+package se.forsman.deckbuilder.features.decks.editdeck
+
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.item_card.view.*
+import se.forsman.deckbuilder.R
+import se.forsman.deckbuilder.features.search.model.MtgCard
+
+class DeckCardAdapter : ListAdapter<MtgCard, DeckCardAdapter.ViewHolder>(DiffCallback()) {
+
+    var onItemClick: ((Int) -> Unit)? = null
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_card, parent, false)
+        return ViewHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bindTo(getItem(position))
+    }
+
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+        fun bindTo(card: MtgCard) {
+            Picasso.get()
+                .load(card.imageUrl)
+                .error(R.drawable.card_back)
+                .placeholder(R.drawable.card_back)
+                .resize(100, 140)
+                .into(itemView.imageCard)
+
+            itemView.setOnClickListener {
+                onItemClick?.invoke(this.adapterPosition)
+            }
+        }
+    }
+
+    private class DiffCallback : DiffUtil.ItemCallback<MtgCard>() {
+        override fun areItemsTheSame(oldItem: MtgCard, newItem: MtgCard): Boolean {
+            return oldItem.name == newItem.name
+        }
+
+        override fun areContentsTheSame(oldItem: MtgCard, newItem: MtgCard): Boolean {
+            return oldItem == newItem
+        }
+    }
+
+}

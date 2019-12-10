@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/chandrablur">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@id/guideline"
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.4" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutDeckHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imageNavigateBack"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:src="@drawable/ic_navigate"
+            android:tint="@color/colorPrimaryLight"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textEditDeck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="24dp"
+            android:text="Edit Deck"
+            android:textColor="@color/colorPrimaryLight"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/imageNavigateBack"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/imageNavigateBack" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutDeckInfo"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="#1AFFFFFF"
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="@id/guideline"
+        app:layout_constraintTop_toBottomOf="@id/layoutDeckHeader">
+
+        <EditText
+            android:id="@+id/textDeckName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@android:color/transparent"
+            android:gravity="center"
+            android:textColor="@color/colorPrimaryLight"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Boros" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:padding="8dp"
+            app:layout_constraintEnd_toEndOf="@id/textMana"
+            app:layout_constraintStart_toStartOf="@id/textMana"
+            app:layout_constraintTop_toBottomOf="@id/textDeckName">
+
+            <ImageView
+                android:id="@+id/imageRed"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/red"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageWhite"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/white"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/imageRed"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageGreen"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/green"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/imageWhite"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageBlack"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/black"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/imageGreen"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageBlue"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/blue"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/imageBlack"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/textMana"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mana"
+            android:textColor="@color/colorPrimaryLight"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@id/textAverageCost"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutColor" />
+
+        <TextView
+            android:id="@+id/textAverageValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimaryLight"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/layoutColor"
+            app:layout_constraintEnd_toEndOf="@id/textAverageCost"
+            app:layout_constraintStart_toStartOf="@id/textAverageCost"
+            app:layout_constraintTop_toTopOf="@id/layoutColor"
+            tools:text="2,3" />
+
+        <TextView
+            android:id="@+id/textAverageCost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Average Cost"
+            android:textColor="@color/colorPrimaryLight"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/textMana"
+            app:layout_constraintTop_toTopOf="@id/textMana" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/textCardsInDeck"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@android:color/transparent"
+        android:textColor="@color/colorPrimaryLight"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutDeckInfo"
+        tools:text="Cards in Deck (60)" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerviewDeck"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="32dp"
+        android:fadingEdge="horizontal"
+        android:fadingEdgeLength="40dp"
+        android:requiresFadingEdge="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textCardsInDeck" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

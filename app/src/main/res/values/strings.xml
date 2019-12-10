@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">MTG Deck Builder</string>
+
+    <string name="cards_in_deck">Cards in Deck (%1$s)</string>
+
+    <string name="failure_database">Database Error</string>
+</resources>
