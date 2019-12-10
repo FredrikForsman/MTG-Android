@@ -5,10 +5,6 @@ import androidx.room.Room
 import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.Types
-import com.squareup.moshi.adapters.Rfc3339DateJsonAdapter
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import se.forsman.deckbuilder.core.database.Database
@@ -23,16 +19,10 @@ import se.forsman.deckbuilder.features.decks.mydecks.DecksAdapter
 import se.forsman.deckbuilder.features.search.CardRepository
 import se.forsman.deckbuilder.features.search.CardRepositoryImpl
 import se.forsman.deckbuilder.features.search.model.CardDao
-import se.forsman.deckbuilder.features.search.model.ScryfallCard
-import java.lang.reflect.ParameterizedType
-import java.util.*
 
 val applicationModule = module {
     single { Room.databaseBuilder((get()) as Context, Database::class.java, "magic_db").build() }
     single { Glide.with((get() as Context)) }
-    single { provideCardType() }
-    single { provideAdapterFromCard(get()) }
-
 }
 
 val searchModule = module {
@@ -60,13 +50,4 @@ val editDeckModule = module {
 private fun provideDeckDao(database: Database): DeckDao = database.deckDao()
 private fun provideScryfallDao(database: Database): CardDao = database.scryfallDao()
 
-private val gson: Gson = GsonBuilder()
-    .create()
-
-fun provideCardType(): ParameterizedType = Types.newParameterizedType(List::class.java, ScryfallCard::class.java)
-fun provideAdapterFromCard(card: ParameterizedType) = moshi.adapter<List<ScryfallCard>>(card)
-
-private val moshi = Moshi.Builder()
-    .add(KotlinJsonAdapterFactory())
-    .add(Date::class.java, Rfc3339DateJsonAdapter().nullSafe())
-    .build()
+private val gson: Gson = GsonBuilder().create()

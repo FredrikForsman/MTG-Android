@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.activity_main.*
 import se.forsman.deckbuilder.R
 import se.forsman.deckbuilder.core.exception.Failure
+import se.forsman.deckbuilder.core.extension.fragmentContainer
 
 abstract class BaseFragment : Fragment() {
 
