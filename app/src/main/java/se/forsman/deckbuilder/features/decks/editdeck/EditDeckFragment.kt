@@ -19,8 +19,8 @@ class EditDeckFragment : BaseFragment() {
 
     private val deckViewModel by sharedViewModel<DeckViewModel>()
     private val adapter by inject<DeckCardAdapter>()
-    private val deckId: Int? by lazy {
-        arguments?.get(ARG_DECK_NAME) as Int?
+    private val deckId: Long? by lazy {
+        arguments?.get(ARG_DECK_NAME) as Long?
     }
 
     override fun layoutId(): Int = R.layout.fragment_edit_deck
@@ -69,11 +69,11 @@ class EditDeckFragment : BaseFragment() {
         private const val TAG_EDIT_DECK = "EditDeckFragment"
         private const val ARG_DECK_NAME = "arg_deck_name"
 
-        fun newInstance(deckId: Int?): EditDeckFragment {
+        fun newInstance(deckId: Long?): EditDeckFragment {
             return EditDeckFragment().apply {
                 deckId?.let { id ->
                     arguments = Bundle().apply {
-                        this.putInt(ARG_DECK_NAME, id)
+                        this.putLong(ARG_DECK_NAME, id)
                     }
                 }
             }

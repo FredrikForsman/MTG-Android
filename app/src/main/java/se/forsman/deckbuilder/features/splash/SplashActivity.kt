@@ -35,6 +35,7 @@ class SplashActivity : AppCompatActivity(), KoinComponent {
     private fun navigateToApp(cards: List<MtgCard>?) {
         cards?.let {
             startActivity(Intent(this, MainActivity::class.java))
+            finish()
         }
     }
 

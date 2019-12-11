@@ -30,14 +30,14 @@ class DeckViewModel(private val deckRepository: DeckRepository) : BaseViewModel(
         )
     }
 
-    fun getDeckById(id: Int?) {
+    fun getDeckById(id: Long?) {
         compositeDisposable.add(
             deckRepository.getDeckById(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                     { deck -> deckToEdit.value = deck },
-                    { deckToEdit.value = Deck(0, "Unnamed", arrayListOf()) }
+                    { handleFailure(Failure.DatabaseError) }
                 )
         )
     }
@@ -50,6 +50,20 @@ class DeckViewModel(private val deckRepository: DeckRepository) : BaseViewModel(
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
                         { deck -> deckToEdit.value = deck },
+                        { handleFailure(Failure.DatabaseError) }
+                    )
+            )
+        }
+    }
+
+    fun deleteDeck(deck: Deck?) {
+        deck?.let {
+            compositeDisposable.add(
+                deckRepository.deleteDeck(it)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                        { decks -> this.decks.value = decks },
                         { handleFailure(Failure.DatabaseError) }
                     )
             )

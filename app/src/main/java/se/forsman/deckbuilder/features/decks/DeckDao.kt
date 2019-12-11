@@ -1,14 +1,13 @@
 package se.forsman.deckbuilder.features.decks
 
 import androidx.room.*
-import io.reactivex.Observable
 import io.reactivex.Single
 
 @Dao
 interface DeckDao {
 
     @Query("SELECT * FROM magicdeck")
-    fun getDecks(): Observable<List<Deck>>
+    fun getDecks(): Single<List<Deck>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun saveDeck(deck: Deck): Long
@@ -17,5 +16,8 @@ interface DeckDao {
     fun updateDeck(deck: Deck)
 
     @Query("SELECT * FROM magicdeck WHERE id = :id")
-    fun getDeckById(id: Int): Single<Deck>
+    fun getDeckById(id: Long): Single<Deck>
+
+    @Delete
+    fun delete(deck: Deck)
 }

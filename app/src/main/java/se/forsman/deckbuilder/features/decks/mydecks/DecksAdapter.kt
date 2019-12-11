@@ -14,6 +14,7 @@ import se.forsman.deckbuilder.features.decks.Deck
 class DecksAdapter : ListAdapter<Deck, DecksAdapter.ViewHolder>(DiffCallback()) {
 
     var onItemClick: ((Deck) -> Unit)? = null
+    var onItemLongClick: ((Deck) -> Unit)? = null
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bindTo(getItem(position))
 
@@ -32,6 +33,11 @@ class DecksAdapter : ListAdapter<Deck, DecksAdapter.ViewHolder>(DiffCallback()) 
 
             itemView.setOnClickListener {
                 onItemClick?.invoke(deck)
+            }
+
+            itemView.setOnLongClickListener {
+                onItemLongClick?.invoke(deck)
+                return@setOnLongClickListener true
             }
         }
 

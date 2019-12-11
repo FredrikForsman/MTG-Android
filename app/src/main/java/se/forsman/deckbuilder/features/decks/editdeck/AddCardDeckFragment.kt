@@ -68,11 +68,11 @@ class AddCardDeckFragment : BaseFragment() {
     companion object {
         private const val ARG_DECK_NAME = "arg_deck_name"
 
-        fun newInstance(deckId: Int?): AddCardDeckFragment {
+        fun newInstance(deckId: Long?): AddCardDeckFragment {
             return AddCardDeckFragment().apply {
                 deckId?.let { id ->
                     arguments = Bundle().apply {
-                        this.putInt(ARG_DECK_NAME, id)
+                        this.putLong(ARG_DECK_NAME, id)
                     }
                 }
             }

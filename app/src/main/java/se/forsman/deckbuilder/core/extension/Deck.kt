@@ -20,7 +20,7 @@ fun Deck.getColor(): Set<String> {
     val set = mutableSetOf<String>()
 
     this.cards.forEach { card ->
-        card.color_identity.forEach { color ->
+        card.colors?.forEach { color ->
             set.add(color)
         }
     }

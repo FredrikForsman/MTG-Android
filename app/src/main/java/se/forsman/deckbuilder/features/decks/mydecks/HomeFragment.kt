@@ -51,7 +51,7 @@ class HomeFragment : BaseFragment() {
         textShowAllDecks.visibility = View.GONE
 
         buttonCreateDecks.setOnClickListener {
-            fragmentManager?.navigateTo(DeckFragment.newInstance(null), TAG_HOME)
+            fragmentManager?.navigateTo(CreateDeckFragment(), TAG_HOME)
         }
     }
 

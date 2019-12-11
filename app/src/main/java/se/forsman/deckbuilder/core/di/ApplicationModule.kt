@@ -15,6 +15,7 @@ import se.forsman.deckbuilder.features.decks.DeckViewModel
 import se.forsman.deckbuilder.features.decks.editdeck.CardAdapter
 import se.forsman.deckbuilder.features.decks.editdeck.DeckCardAdapter
 import se.forsman.deckbuilder.features.decks.editdeck.EditDeckViewModel
+import se.forsman.deckbuilder.features.decks.mydecks.CreateDeckViewModel
 import se.forsman.deckbuilder.features.decks.mydecks.DecksAdapter
 import se.forsman.deckbuilder.features.search.CardRepository
 import se.forsman.deckbuilder.features.search.CardRepositoryImpl
@@ -30,22 +31,18 @@ val searchModule = module {
     single<CardRepository> { CardRepositoryImpl((get()) as Context, get(), gson) }
 }
 
-val myDecksModule = module {
-    single<DeckRepository> {
-        DeckRepositoryImpl(
-            get()
-        )
-    }
+val decksModule = module {
+    single<DeckRepository> { DeckRepositoryImpl(get()) }
     single { provideDeckDao(get()) }
     viewModel { DeckViewModel(get()) }
-    factory { DecksAdapter() }
-}
-
-val editDeckModule = module {
-    factory { DeckCardAdapter() }
     viewModel { EditDeckViewModel(get()) }
+    viewModel { CreateDeckViewModel(get()) }
+
+    factory { DecksAdapter() }
+    factory { DeckCardAdapter() }
     factory { CardAdapter() }
 }
+
 
 private fun provideDeckDao(database: Database): DeckDao = database.deckDao()
 private fun provideScryfallDao(database: Database): CardDao = database.scryfallDao()

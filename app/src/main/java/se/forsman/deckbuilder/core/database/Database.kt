@@ -9,10 +9,11 @@ import com.google.gson.reflect.TypeToken
 import se.forsman.deckbuilder.features.decks.Deck
 import se.forsman.deckbuilder.features.decks.DeckDao
 import se.forsman.deckbuilder.features.search.model.CardDao
+import se.forsman.deckbuilder.features.search.model.CardTypeConverter
 import se.forsman.deckbuilder.features.search.model.MtgCard
 
 @Database(entities = [Deck::class, MtgCard::class], version = 1, exportSchema = false)
-@TypeConverters(value = arrayOf(Converter::class, CardConverter::class))
+@TypeConverters(value = arrayOf(Converter::class, CardConverter::class, CardTypeConverter::class))
 abstract class Database : RoomDatabase() {
     abstract fun deckDao(): DeckDao
     abstract fun scryfallDao(): CardDao
