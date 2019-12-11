@@ -22,7 +22,10 @@ class DeckCardAdapter : ListAdapter<MtgCard, DeckCardAdapter.ViewHolder>(DiffCal
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindTo(getItem(position))
+        val card = getItem(position)
+        if (card != null) {
+            holder.bindTo(card)
+        }
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

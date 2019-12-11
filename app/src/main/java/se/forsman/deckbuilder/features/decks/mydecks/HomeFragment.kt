@@ -38,7 +38,7 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun initView() {
-
+        viewModel.getMeta()
         viewModel.loadDecks()
 
         recyclerviewMyDecks.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)

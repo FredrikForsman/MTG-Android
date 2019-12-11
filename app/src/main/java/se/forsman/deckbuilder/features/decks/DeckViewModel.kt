@@ -1,5 +1,6 @@
 package se.forsman.deckbuilder.features.decks
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -17,6 +18,38 @@ class DeckViewModel(private val deckRepository: DeckRepository) : BaseViewModel(
     fun getDeckToEdit(): LiveData<Deck> = deckToEdit
 
     private val compositeDisposable = CompositeDisposable()
+
+    fun getMeta() {
+        compositeDisposable.add(
+        deckRepository.getMetaDeckById(2352)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { success -> Log.d("DECK", "Got deck: ${success.data?.name}") },
+                { error -> Log.e("DECK", "error getting deck by id: $error") }
+            )
+        )
+
+//        compositeDisposable.add(
+//        deckRepository.getStandardMeta()
+//            .subscribeOn(Schedulers.io())
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .subscribe(
+//                { data ->
+//                    data.data.forEach {
+//                        deckRepository.getMetaDeckById(it.did)
+//                            .subscribeOn(Schedulers.io())
+//                            .observeOn(AndroidSchedulers.mainThread())
+//                            .subscribe(
+//                                { success -> Log.d("DECK", "Got deck: ${success.data?.name}") },
+//                                { error -> Log.e("DECK", "error getting deck by id: $error") }
+//                            )
+//                    }
+//                },
+//                { error -> Log.e("DECK", "error getting meta: $error")}
+//            )
+//        )
+    }
 
     fun loadDecks() {
         compositeDisposable.add(

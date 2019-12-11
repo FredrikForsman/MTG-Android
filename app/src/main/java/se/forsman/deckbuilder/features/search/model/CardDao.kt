@@ -15,6 +15,9 @@ interface CardDao {
     @Query("SELECT * FROM mtgcard WHERE name LIKE :query || '%'")
     fun searchCardsByName(query: String): Single<List<MtgCard>>
 
+    @Query("SELECT * FROM mtgcard WHERE name = :name")
+    fun findCardByName(name: String): MtgCard
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertMagicCard(card: MtgCard)
 

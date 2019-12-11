@@ -39,6 +39,10 @@ dependencies {
     implementation 'com.jakewharton.rxbinding3:rxbinding:3.0.0'
     // json parse
     implementation 'com.squareup.retrofit2:converter-gson:2.6.2'
+    // retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.6.2'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.6.2'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.2.1'
     // room
     implementation 'androidx.room:room-rxjava2:2.2.2'
     kapt "android.arch.persistence.room:compiler:2.1.0"

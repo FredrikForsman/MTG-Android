@@ -35,6 +35,10 @@ class CardRepositoryImpl(
         return cardDao.searchCardsByName(query)
     }
 
+    override fun findCardByName(name: String): MtgCard {
+        return cardDao.findCardByName(name)
+    }
+
     private fun getStandardCardsFromScryfall(): Single<List<MtgCard>> {
         val list = mutableListOf<MtgCard>()
         return try {
