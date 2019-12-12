@@ -1,61 +1,45 @@
 package se.forsman.deckbuilder.features.decks.editdeck
 
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.DialogFragment
-import androidx.lifecycle.Observer
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.dialog_remove_card.*
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import kotlinx.android.synthetic.main.dialog_card.*
 import se.forsman.deckbuilder.R
-import se.forsman.deckbuilder.features.decks.DeckViewModel
+import se.forsman.deckbuilder.core.extension.getCardsWithGivenName
+import se.forsman.deckbuilder.core.extension.getSortedByType
+import se.forsman.deckbuilder.core.extension.observe
 import se.forsman.deckbuilder.features.search.model.MtgCard
 
-class RemoveCardDialog : DialogFragment() {
+class RemoveCardDialog : CardDialog() {
 
     private val cardPosition: Int by lazy {
         arguments?.get(ARG_CARDS_POSITION) as Int
     }
 
-    private val deckViewModel by sharedViewModel<DeckViewModel>()
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        dialog?.window?.setDimAmount(0.9f)
-        return inflater.inflate(R.layout.dialog_remove_card, container, false)
-    }
+    override fun getCard(): MtgCard? = deckViewModel.getDeckToEdit().value?.getSortedByType()?.get(cardPosition)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val card = deckViewModel.getDeckToEdit().value?.cards?.get(cardPosition)
+        buttonHandleCard.text = getString(R.string.remove_card_deck)
 
         val listOfCards = mutableListOf<MtgCard>()
 
-        card?.let { c ->
+        getCard()?.let { card ->
 
             val deck = deckViewModel.getDeckToEdit().value
-            deck?.cards?.filter { it.name == c.name }?.let {
-                listOfCards.addAll(it)
+            deck?.let {
+                listOfCards.addAll(it.getCardsWithGivenName(card.name))
             }
 
-
             Picasso.get()
-                .load(c.imageUrlLarge)
+                .load(card.imageUrlLarge)
                 .error(R.drawable.card_back)
                 .placeholder(R.drawable.card_back)
                 .resize(252, 352)
                 .into(imageCard)
 
-            buttonRemoveCard.setOnClickListener {
+            buttonHandleCard.setOnClickListener {
                 deck?.let { d ->
                     d.cards.remove(listOfCards.lastOrNull())
                     listOfCards.remove(listOfCards.lastOrNull())
@@ -64,7 +48,7 @@ class RemoveCardDialog : DialogFragment() {
             }
         }
 
-        deckViewModel.getDeckToEdit().observe(viewLifecycleOwner, Observer {
+        this.observe(deckViewModel.getDeckToEdit()) {
             when (listOfCards.size) {
                 0 -> {
                     dismiss()
@@ -100,7 +84,7 @@ class RemoveCardDialog : DialogFragment() {
                     imageFourth.isSelected = false
                 }
             }
-        })
+        }
     }
 
     companion object {

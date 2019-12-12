@@ -4,4 +4,8 @@
     <string name="cards_in_deck">Cards in Deck (%1$s)</string>
 
     <string name="failure_database">Database Error</string>
+
+    <string name="add_card_deck">Add card to deck</string>
+    <string name="remove_card_deck">Remove card from deck</string>
+
 </resources>
