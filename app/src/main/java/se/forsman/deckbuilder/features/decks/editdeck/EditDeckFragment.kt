@@ -8,10 +8,7 @@ import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import se.forsman.deckbuilder.R
 import se.forsman.deckbuilder.core.app.BaseFragment
-import se.forsman.deckbuilder.core.extension.close
-import se.forsman.deckbuilder.core.extension.failure
-import se.forsman.deckbuilder.core.extension.navigateTo
-import se.forsman.deckbuilder.core.extension.observe
+import se.forsman.deckbuilder.core.extension.*
 import se.forsman.deckbuilder.features.decks.Deck
 import se.forsman.deckbuilder.features.decks.DeckViewModel
 
@@ -48,7 +45,7 @@ class EditDeckFragment : BaseFragment() {
             }
         }
 
-        buttonAddCard.setOnClickListener {
+        buttonAddCards.setOnClickListener {
             fragmentManager?.navigateTo(AddCardDeckFragment.newInstance(deckId), TAG_EDIT_DECK)
         }
 
@@ -60,7 +57,7 @@ class EditDeckFragment : BaseFragment() {
     private fun renderDeck(deck: Deck?) {
         deck?.let {
             textCardsInDeck.text = String.format(getString(R.string.cards_in_deck), it.cards.size)
-            adapter.submitList(it.cards)
+            adapter.submitList(it.getSortedByType())
             adapter.notifyDataSetChanged()
         }
     }

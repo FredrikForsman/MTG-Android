@@ -34,15 +34,15 @@ data class MtgCard(
     val cardType: CardType?
 )
 
-enum class CardType {
-    CREATURE,
-    ARTIFACT,
-    ENCHANTMENT,
-    INSTANT,
-    SORCERY,
-    LAND,
-    PLANESWALKER,
-    OTHER
+enum class CardType(val value: Int) {
+    CREATURE(0),
+    ARTIFACT(4),
+    ENCHANTMENT(3),
+    INSTANT(2),
+    SORCERY(2),
+    LAND(5),
+    PLANESWALKER(1),
+    OTHER(6)
 }
 
 class CardTypeConverter {

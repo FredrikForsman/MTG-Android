@@ -59,11 +59,11 @@
             android:fadingEdge="horizontal"
             android:fadingEdgeLength="80dp"
             android:requiresFadingEdge="vertical"
-            app:layout_constraintBottom_toTopOf="@id/buttonAddCard"
+            app:layout_constraintBottom_toTopOf="@id/buttonAddCards"
             app:layout_constraintTop_toBottomOf="@id/layoutEditDeckHeader" />
 
         <Button
-            android:id="@+id/buttonAddCard"
+            android:id="@+id/buttonAddCards"
             style="@style/ButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

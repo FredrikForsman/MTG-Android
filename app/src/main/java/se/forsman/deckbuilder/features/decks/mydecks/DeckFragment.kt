@@ -72,7 +72,7 @@ class DeckFragment : BaseFragment() {
             textCardsInDeck.text = String.format(getString(R.string.cards_in_deck), it.cards.size)
             textAverageValue.text = it.getAverageManaCost()
             setColorsOfDeck(it.getColor())
-            deckCardAdapter.submitList(it.cards)
+            deckCardAdapter.submitList(it.getSortedByType())
             deckCardAdapter.notifyDataSetChanged()
         }
     }
