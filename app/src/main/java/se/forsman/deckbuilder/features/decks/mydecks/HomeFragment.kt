@@ -24,7 +24,7 @@ class HomeFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        this.observe(viewModel.getDecks()) {
+        observe(viewModel.getDecks()) {
             if (it.isNullOrEmpty()) {
                 noDecks()
             } else {
@@ -32,7 +32,7 @@ class HomeFragment : BaseFragment() {
             }
         }
 
-        this.failure(viewModel.getErrorMessage(), this::handleFailure)
+        failure(viewModel.getErrorMessage(), this::handleFailure)
 
         initView()
     }

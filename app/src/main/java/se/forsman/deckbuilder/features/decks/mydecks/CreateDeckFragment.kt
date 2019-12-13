@@ -8,6 +8,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import se.forsman.deckbuilder.R
 import se.forsman.deckbuilder.core.app.BaseFragment
 import se.forsman.deckbuilder.core.extension.close
+import se.forsman.deckbuilder.core.extension.failure
 import se.forsman.deckbuilder.core.extension.observe
 import se.forsman.deckbuilder.features.decks.Deck
 
@@ -19,7 +20,7 @@ class CreateDeckFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        this.observe(viewModel.getDeck()) { deck ->
+        observe(viewModel.getDeck()) { deck ->
             deck?.let { d ->
                 fragmentManager?.let {
                     val transaction = it.beginTransaction()
@@ -30,7 +31,7 @@ class CreateDeckFragment : BaseFragment() {
             }
         }
 
-        this.observe(viewModel.getErrorMessage(), this::handleFailure)
+        failure(viewModel.getErrorMessage(), this::handleFailure)
 
         initView()
     }

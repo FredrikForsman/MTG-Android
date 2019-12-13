@@ -12,12 +12,12 @@ import se.forsman.deckbuilder.R
 import se.forsman.deckbuilder.core.exception.Failure
 import se.forsman.deckbuilder.core.extension.failure
 import se.forsman.deckbuilder.core.extension.observe
-import se.forsman.deckbuilder.features.decks.editdeck.EditDeckViewModel
+import se.forsman.deckbuilder.features.decks.editdeck.CardViewModel
 import se.forsman.deckbuilder.features.search.model.MtgCard
 
 class SplashActivity : AppCompatActivity(), KoinComponent {
 
-    private val viewModel by viewModel<EditDeckViewModel>()
+    private val viewModel by viewModel<CardViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

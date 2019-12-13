@@ -10,7 +10,7 @@ import se.forsman.deckbuilder.core.exception.Failure
 import se.forsman.deckbuilder.features.search.CardRepository
 import se.forsman.deckbuilder.features.search.model.MtgCard
 
-class EditDeckViewModel(private val cardRepository: CardRepository) : BaseViewModel() {
+class CardViewModel(private val cardRepository: CardRepository) : BaseViewModel() {
 
     private val cards = MutableLiveData<List<MtgCard>>()
     fun getCards(): LiveData<List<MtgCard>> = cards

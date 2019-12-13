@@ -48,7 +48,7 @@ class RemoveCardDialog : CardDialog() {
             }
         }
 
-        this.observe(deckViewModel.getDeckToEdit()) {
+        observe(deckViewModel.getDeckToEdit()) {
             when (listOfCards.size) {
                 0 -> {
                     dismiss()

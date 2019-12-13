@@ -25,8 +25,8 @@ class MyDecksFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        this.observe(viewModel.getDecks(), this::showDecks)
-        this.failure(viewModel.getErrorMessage(), this::handleFailure)
+        observe(viewModel.getDecks(), this::showDecks)
+        failure(viewModel.getErrorMessage(), this::handleFailure)
 
         initView()
     }

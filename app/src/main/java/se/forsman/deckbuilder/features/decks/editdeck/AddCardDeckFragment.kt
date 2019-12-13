@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit
 
 class AddCardDeckFragment : BaseFragment() {
 
-    private val editDeckViewModel by sharedViewModel<EditDeckViewModel>()
+    private val cardViewModel by sharedViewModel<CardViewModel>()
     private val adapter by inject<CardAdapter>()
     private val compositeDisposable = CompositeDisposable()
 
@@ -27,8 +27,8 @@ class AddCardDeckFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        this.observe(editDeckViewModel.getCards(), this::showCards)
-        this.failure(editDeckViewModel.getErrorMessage(), this::handleFailure)
+        observe(cardViewModel.getCards(), this::showCards)
+        failure(cardViewModel.getErrorMessage(), this::handleFailure)
 
         initView()
     }
@@ -39,7 +39,7 @@ class AddCardDeckFragment : BaseFragment() {
     }
 
     private fun initView() {
-        editDeckViewModel.loadCards()
+        cardViewModel.loadCards()
 
         recyclerviewCards.adapter = adapter
         recyclerviewCards.layoutManager =
@@ -55,7 +55,7 @@ class AddCardDeckFragment : BaseFragment() {
             .debounce(1, TimeUnit.SECONDS)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { query ->
-                editDeckViewModel.search(query)
+                cardViewModel.search(query)
             })
     }
 

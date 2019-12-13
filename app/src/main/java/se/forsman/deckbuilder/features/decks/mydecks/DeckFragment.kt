@@ -29,8 +29,8 @@ class DeckFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        this.observe(deckViewModel.getDeckToEdit(), this::renderDeck)
-        this.failure(deckViewModel.getErrorMessage(), this::handleFailure)
+        observe(deckViewModel.getDeckToEdit(), this::renderDeck)
+        failure(deckViewModel.getErrorMessage(), this::handleFailure)
 
         initView()
     }

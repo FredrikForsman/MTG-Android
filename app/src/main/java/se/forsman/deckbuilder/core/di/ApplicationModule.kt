@@ -14,7 +14,7 @@ import se.forsman.deckbuilder.features.decks.DeckRepositoryImpl
 import se.forsman.deckbuilder.features.decks.DeckViewModel
 import se.forsman.deckbuilder.features.decks.editdeck.CardAdapter
 import se.forsman.deckbuilder.features.decks.editdeck.DeckCardAdapter
-import se.forsman.deckbuilder.features.decks.editdeck.EditDeckViewModel
+import se.forsman.deckbuilder.features.decks.editdeck.CardViewModel
 import se.forsman.deckbuilder.features.decks.mydecks.CreateDeckViewModel
 import se.forsman.deckbuilder.features.decks.mydecks.DecksAdapter
 import se.forsman.deckbuilder.features.search.CardRepository
@@ -35,7 +35,7 @@ val decksModule = module {
     single<DeckRepository> { DeckRepositoryImpl(get()) }
     single { provideDeckDao(get()) }
     viewModel { DeckViewModel(get()) }
-    viewModel { EditDeckViewModel(get()) }
+    viewModel { CardViewModel(get()) }
     viewModel { CreateDeckViewModel(get()) }
 
     factory { DecksAdapter() }
