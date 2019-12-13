@@ -1,11 +1,22 @@
 <resources>
     <string name="app_name">MTG Deck Builder</string>
+    <string name="all_cancel">Cancel</string>
+    <string name="all_average_cost">Average cost</string>
+    <string name="all_show_all">Show all</string>
 
+
+    <string name="loading_cards">Loading cards…</string>
+    <string name="add_cards">Add cards</string>
+    <string name="my_decks">My decks</string>
     <string name="cards_in_deck">Cards in Deck (%1$s)</string>
-
+    <string name="hint_name_deck">Name of the deck</string>
+    <string name="create_deck">Create new deck</string>
+    <string name="edit_deck">Edit deck</string>
+    <string name="mtg_mana">Mana</string>
     <string name="failure_database">Database Error</string>
-
     <string name="add_card_deck">Add card to deck</string>
     <string name="remove_card_deck">Remove card from deck</string>
 
+    <string name="search_cards">Search for cards</string>
+    <string name="suggestion_cards">How about these cards?</string>
 </resources>

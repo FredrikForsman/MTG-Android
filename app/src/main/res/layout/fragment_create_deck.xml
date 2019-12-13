@@ -50,7 +50,7 @@
             android:textColor="@color/colorPrimaryLight"
             android:textSize="32sp"
             android:textStyle="bold"
-            android:hint="Deck name"
+            android:hint="@string/hint_name_deck"
             android:textColorHint="@color/colorPrimaryLight"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -68,7 +68,7 @@
         android:layout_marginHorizontal="32dp"
         android:layout_marginTop="32dp"
         android:layout_marginBottom="64dp"
-        android:text="Create deck"
+        android:text="@string/create_deck"
         app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

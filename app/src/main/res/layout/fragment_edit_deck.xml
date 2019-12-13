@@ -70,7 +70,7 @@
             android:layout_marginHorizontal="32dp"
             android:layout_marginTop="32dp"
             android:layout_marginBottom="64dp"
-            android:text="Add cards"
+            android:text="@string/add_cards"
             app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
