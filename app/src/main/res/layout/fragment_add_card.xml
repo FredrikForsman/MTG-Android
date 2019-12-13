@@ -35,6 +35,7 @@
                 android:padding="8dp"
                 android:textAlignment="center"
                 android:textColorHint="@color/colorPrimaryLight"
+                android:textColor="@color/colorPrimaryLight"
                 app:layout_constraintEnd_toStartOf="@id/textAddCardsCancel"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
