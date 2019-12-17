@@ -41,6 +41,69 @@ class AddCardDeckFragment : BaseFragment() {
     private fun initView() {
         cardViewModel.loadCards()
 
+        val filter = mutableSetOf<String>()
+
+        imageWhite.apply {
+            setOnClickListener {
+                isSelected = !isSelected
+                if (isSelected) {
+                    filter.add("W")
+                } else {
+                    filter.remove("W")
+                }
+                search(editTextSearch.text.toString(), filter)
+            }
+        }
+
+        imageBlue.apply {
+            setOnClickListener {
+                isSelected = !isSelected
+                if (isSelected) {
+                    filter.add("U")
+                } else {
+                    filter.remove("U")
+                }
+                search(editTextSearch.text.toString(), filter)
+            }
+        }
+
+        imageBlack.apply {
+            setOnClickListener {
+                isSelected = !isSelected
+                if (isSelected) {
+                    filter.add("B")
+                } else {
+                    filter.remove("B")
+                }
+                search(editTextSearch.text.toString(), filter)
+            }
+        }
+
+        imageRed.apply {
+            setOnClickListener {
+                isSelected = !isSelected
+                if (isSelected) {
+                    filter.add("R")
+                } else {
+                    filter.remove("R")
+                }
+                search(editTextSearch.text.toString(), filter)
+            }
+        }
+
+        imageGreen.apply {
+            setOnClickListener {
+                isSelected = !isSelected
+                if (isSelected) {
+                    filter.add("G")
+                } else {
+                    filter.remove("G")
+                }
+                search(editTextSearch.text.toString(), filter)
+            }
+        }
+
+
         recyclerviewCards.adapter = adapter
         recyclerviewCards.layoutManager =
             GridLayoutManager(requireContext(), 3, GridLayoutManager.VERTICAL, false)
@@ -55,7 +118,7 @@ class AddCardDeckFragment : BaseFragment() {
             .debounce(1, TimeUnit.SECONDS)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { query ->
-                cardViewModel.search(query)
+                search(query, filter)
             })
     }
 
@@ -63,6 +126,10 @@ class AddCardDeckFragment : BaseFragment() {
         cards?.let {
             adapter.submitList(cards)
         }
+    }
+
+    private fun search(query: String, colors: Set<String>) {
+        cardViewModel.filter(query, colors)
     }
 
     companion object {

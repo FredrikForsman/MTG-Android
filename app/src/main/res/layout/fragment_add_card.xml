@@ -27,45 +27,149 @@
                 android:id="@+id/editTextSearch"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="36dp"
                 android:background="@drawable/rounded_border_button"
                 android:hint="@string/search_cards"
                 android:padding="8dp"
                 android:textAlignment="center"
-                android:textColorHint="@color/colorPrimaryLight"
                 android:textColor="@color/colorPrimaryLight"
-                app:layout_constraintEnd_toStartOf="@id/textAddCardsCancel"
+                android:textColorHint="@color/colorPrimaryLight"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/textAddCardsCancel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="24dp"
-                android:text="@string/all_cancel"
-                android:textColor="@color/colorPrimaryLight"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@id/editTextSearch"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/editTextSearch" />
-
-            <TextView
-                android:id="@+id/textAddCards"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutColor"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:lines="2"
-                android:minLines="2"
-                android:text="@string/suggestion_cards"
-                android:textColor="@color/colorPrimaryLight"
-                android:textSize="40sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@id/guidelineAddCardHeader"
-                app:layout_constraintStart_toStartOf="@id/editTextSearch"
-                app:layout_constraintTop_toBottomOf="@id/editTextSearch" />
+                android:padding="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/editTextSearch">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/imageWhite"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/selector_glow"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/imageBlue"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintHorizontal_chainStyle="spread">
+
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:src="@drawable/white"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/imageBlue"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/selector_glow"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/imageBlack"
+                    app:layout_constraintStart_toEndOf="@id/imageWhite"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:src="@drawable/blue"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/imageBlack"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/selector_glow"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/imageRed"
+                    app:layout_constraintStart_toEndOf="@id/imageBlue"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:src="@drawable/black"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/imageRed"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/selector_glow"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/imageGreen"
+                    app:layout_constraintStart_toEndOf="@id/imageBlack"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:src="@drawable/red"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/imageGreen"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/selector_glow"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/imageRed"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:background="@drawable/green"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!--            <TextView-->
+            <!--                android:id="@+id/textAddCards"-->
+            <!--                android:layout_width="0dp"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginTop="16dp"-->
+            <!--                android:lines="2"-->
+            <!--                android:minLines="2"-->
+            <!--                android:text="@string/suggestion_cards"-->
+            <!--                android:textColor="@color/colorPrimaryLight"-->
+            <!--                android:textSize="40sp"-->
+            <!--                android:textStyle="bold"-->
+            <!--                app:layout_constraintEnd_toStartOf="@id/guidelineAddCardHeader"-->
+            <!--                app:layout_constraintStart_toStartOf="@id/editTextSearch"-->
+            <!--                app:layout_constraintTop_toBottomOf="@id/editTextSearch" />-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -73,6 +177,7 @@
             android:id="@+id/recyclerviewCards"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginTop="24dp"
             android:fadingEdge="horizontal"
             android:fadingEdgeLength="80dp"
             android:requiresFadingEdge="vertical"

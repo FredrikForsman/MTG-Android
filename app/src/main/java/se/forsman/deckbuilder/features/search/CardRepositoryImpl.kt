@@ -5,10 +5,7 @@ import com.google.gson.Gson
 import com.google.gson.stream.JsonReader
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
-import se.forsman.deckbuilder.features.search.model.CardDao
-import se.forsman.deckbuilder.features.search.model.CardType
-import se.forsman.deckbuilder.features.search.model.MtgCard
-import se.forsman.deckbuilder.features.search.model.ScryfallCard
+import se.forsman.deckbuilder.features.search.model.*
 
 class CardRepositoryImpl(
     private val context: Context,
@@ -31,8 +28,20 @@ class CardRepositoryImpl(
         }
     }
 
-    override fun searchCardByName(query: String): Single<List<MtgCard>> {
-        return cardDao.searchCardsByName(query)
+    override fun filterCards(filter: SearchFilter): Single<List<MtgCard>> {
+        return cardDao.searchCardsByName(filter.query).map { cards ->
+            if (filter.colors.isEmpty()) {
+                cards
+            } else {
+                val listOfCards = mutableListOf<MtgCard>()
+                cards.forEach { card ->
+                    if (card.color_identity.any { it in filter.colors }) {
+                        listOfCards.add(card)
+                    }
+                }
+                listOfCards
+            }
+        }
     }
 
     private fun getStandardCardsFromScryfall(): Single<List<MtgCard>> {
@@ -48,25 +57,32 @@ class CardRepositoryImpl(
             while (jsonReader.hasNext()) {
                 val card = gson.fromJson<ScryfallCard>(jsonReader, ScryfallCard::class.java)
                 if (card.legalities.standard == "legal") {
-
-                    if (card.type_line.contains("Creature")) {
-                        list.add(MtgCard(card.name, card.set, card.cmc.toInt(), card.colors, card.color_identity, card.image_uris.small, card.image_uris.large, card.type_line, card.collector_number, CardType.CREATURE))
-                    } else if (card.type_line.contains("Artifact")) {
-                        list.add(MtgCard(card.name, card.set, card.cmc.toInt(), card.colors, card.color_identity, card.image_uris.small, card.image_uris.large, card.type_line, card.collector_number, CardType.ARTIFACT))
-                    } else if (card.type_line.contains("Enchantment")) {
-                        list.add(MtgCard(card.name, card.set, card.cmc.toInt(), card.colors, card.color_identity, card.image_uris.small, card.image_uris.large, card.type_line, card.collector_number, CardType.ENCHANTMENT))
-                    } else if (card.type_line.contains("Instant")) {
-                        list.add(MtgCard(card.name, card.set, card.cmc.toInt(), card.colors, card.color_identity, card.image_uris.small, card.image_uris.large, card.type_line, card.collector_number, CardType.INSTANT))
-                    }
-                    else if (card.type_line.contains("Sorcery")) {
-                        list.add(MtgCard(card.name, card.set, card.cmc.toInt(), card.colors, card.color_identity, card.image_uris.small, card.image_uris.large, card.type_line, card.collector_number, CardType.SORCERY))
-                    }
-                    else if (card.type_line.contains("Land")) {
-                        list.add(MtgCard(card.name, card.set, card.cmc.toInt(), card.colors, card.color_identity, card.image_uris.small, card.image_uris.large, card.type_line, card.collector_number, CardType.LAND))
-                    } else if (card.type_line.contains("Planeswalker")) {
-                        list.add(MtgCard(card.name, card.set, card.cmc.toInt(), card.colors, card.color_identity, card.image_uris.small, card.image_uris.large, card.type_line, card.collector_number, CardType.PLANESWALKER))
-                    } else {
-                        list.add(MtgCard(card.name, card.set, card.cmc.toInt(), card.colors, card.color_identity, card.image_uris.small, card.image_uris.large, card.type_line, card.collector_number, CardType.OTHER))
+                    val cardType = card.type_line
+                    when {
+                        cardType.contains("Creature") -> {
+                            list.add(MtgCard(card.name, card.set, card.cmc.toInt(), card.colors, card.color_identity, card.image_uris.small, card.image_uris.large, cardType, card.collector_number, CardType.CREATURE))
+                        }
+                        cardType.contains("Artifact") -> {
+                            list.add(MtgCard(card.name, card.set, card.cmc.toInt(), card.colors, card.color_identity, card.image_uris.small, card.image_uris.large, cardType, card.collector_number, CardType.ARTIFACT))
+                        }
+                        cardType.contains("Enchantment") -> {
+                            list.add(MtgCard(card.name, card.set, card.cmc.toInt(), card.colors, card.color_identity, card.image_uris.small, card.image_uris.large, cardType, card.collector_number, CardType.ENCHANTMENT))
+                        }
+                        cardType.contains("Instant") -> {
+                            list.add(MtgCard(card.name, card.set, card.cmc.toInt(), card.colors, card.color_identity, card.image_uris.small, card.image_uris.large, cardType, card.collector_number, CardType.INSTANT))
+                        }
+                        cardType.contains("Sorcery") -> {
+                            list.add(MtgCard(card.name, card.set, card.cmc.toInt(), card.colors, card.color_identity, card.image_uris.small, card.image_uris.large, cardType, card.collector_number, CardType.SORCERY))
+                        }
+                        cardType.contains("Land") -> {
+                            list.add(MtgCard(card.name, card.set, card.cmc.toInt(), card.colors, card.color_identity, card.image_uris.small, card.image_uris.large, cardType, card.collector_number, CardType.LAND))
+                        }
+                        cardType.contains("Planeswalker") -> {
+                            list.add(MtgCard(card.name, card.set, card.cmc.toInt(), card.colors, card.color_identity, card.image_uris.small, card.image_uris.large, cardType, card.collector_number, CardType.PLANESWALKER))
+                        }
+                        else -> {
+                            list.add(MtgCard(card.name, card.set, card.cmc.toInt(), card.colors, card.color_identity, card.image_uris.small, card.image_uris.large, cardType, card.collector_number, CardType.OTHER))
+                        }
                     }
                     numberOfCards++
                 }

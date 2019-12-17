@@ -9,6 +9,7 @@ import se.forsman.deckbuilder.core.app.BaseViewModel
 import se.forsman.deckbuilder.core.exception.Failure
 import se.forsman.deckbuilder.features.search.CardRepository
 import se.forsman.deckbuilder.features.search.model.MtgCard
+import se.forsman.deckbuilder.features.search.model.SearchFilter
 
 class CardViewModel(private val cardRepository: CardRepository) : BaseViewModel() {
 
@@ -29,16 +30,17 @@ class CardViewModel(private val cardRepository: CardRepository) : BaseViewModel(
         )
     }
 
-    fun search(query: String) {
+    fun filter(query: String, colors: Set<String>) {
         compositeDisposable.add(
-            cardRepository.searchCardByName(query)
+            cardRepository.filterCards(SearchFilter(query, colors))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                    { cards -> this.cards.value = cards },
+                    { cards ->
+                        this.cards.value = cards
+                    },
                     { handleFailure(Failure.DatabaseError) }
                 )
         )
-
     }
 }
