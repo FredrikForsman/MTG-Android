@@ -22,9 +22,9 @@ class CreateDeckFragment : BaseFragment() {
 
         observe(viewModel.getDeck()) { deck ->
             deck?.let { d ->
-                fragmentManager?.let {
-                    val transaction = it.beginTransaction()
-                    transaction.remove(this)
+                parentFragmentManager.apply {
+                    val transaction = this.beginTransaction()
+                    transaction.remove(this@CreateDeckFragment)
                     transaction.replace(R.id.fragmentContainer, DeckFragment.newInstance(d.id))
                     transaction.commit()
                 }

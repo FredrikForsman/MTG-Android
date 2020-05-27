@@ -18,7 +18,7 @@ fun FragmentManager.navigateTo(fragment: Fragment, backStackTag: String?) {
 }
 
 fun Fragment.close() {
-    fragmentManager?.popBackStack()
+    parentFragmentManager.popBackStack()
 }
 
 val BaseFragment.fragmentContainer: View get() = (activity as MainActivity).fragmentContainer

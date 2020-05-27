@@ -39,7 +39,7 @@ class MyDecksFragment : BaseFragment() {
         recyclerviewMyDecks.adapter = adapter
 
         buttonCreateDeck.setOnClickListener {
-            fragmentManager?.navigateTo(CreateDeckFragment(), TAG_MY_DECKS)
+            parentFragmentManager.navigateTo(CreateDeckFragment(), TAG_MY_DECKS)
         }
 
         imageNavigateBack.setOnClickListener {
@@ -47,7 +47,7 @@ class MyDecksFragment : BaseFragment() {
         }
 
         adapter.onItemClick = { deck ->
-            fragmentManager?.navigateTo(DeckFragment.newInstance(deck.id), TAG_MY_DECKS)
+            parentFragmentManager.navigateTo(DeckFragment.newInstance(deck.id), TAG_MY_DECKS)
         }
 
         adapter.onItemLongClick = { deck ->

@@ -40,13 +40,13 @@ class EditDeckFragment : BaseFragment() {
             GridLayoutManager(requireContext(), 3, GridLayoutManager.VERTICAL, false)
 
         adapter.onItemClick = { position ->
-            fragmentManager?.let {
+            parentFragmentManager.let {
                 RemoveCardDialog.newInstance(position).show(it, "remove_card_dialog")
             }
         }
 
         buttonAddCards.setOnClickListener {
-            fragmentManager?.navigateTo(AddCardDeckFragment.newInstance(deckId), TAG_EDIT_DECK)
+            parentFragmentManager.navigateTo(AddCardDeckFragment.newInstance(deckId), TAG_EDIT_DECK)
         }
 
         imageNavigateBack.setOnClickListener {
@@ -57,7 +57,7 @@ class EditDeckFragment : BaseFragment() {
     private fun renderDeck(deck: Deck?) {
         deck?.let {
             textCardsInDeck.text = String.format(getString(R.string.cards_in_deck), it.cards.size)
-            adapter.submitList(it.getSortedByType())
+            adapter.submitList(deck.filterUnique())
             adapter.notifyDataSetChanged()
         }
     }

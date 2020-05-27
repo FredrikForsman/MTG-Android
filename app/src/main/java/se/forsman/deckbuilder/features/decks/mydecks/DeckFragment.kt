@@ -43,14 +43,12 @@ class DeckFragment : BaseFragment() {
         recyclerviewDeck.layoutManager =
             GridLayoutManager(requireContext(), 3, GridLayoutManager.VERTICAL, false)
         deckCardAdapter.onItemClick = { position ->
-            fragmentManager?.let {
-                RemoveCardDialog.newInstance(position)
-                    .show(it, "remove_card_dialog")
-            }
+            RemoveCardDialog.newInstance(position)
+                .show(parentFragmentManager, "remove_card_dialog")
         }
 
         textEditDeck.setOnClickListener {
-            fragmentManager?.navigateTo(EditDeckFragment.newInstance(deckId), TAG_DECK)
+            parentFragmentManager.navigateTo(EditDeckFragment.newInstance(deckId), TAG_DECK)
         }
 
         imageNavigateBack.setOnClickListener {
@@ -72,7 +70,7 @@ class DeckFragment : BaseFragment() {
             textCardsInDeck.text = String.format(getString(R.string.cards_in_deck), it.cards.size)
             textAverageValue.text = it.getAverageManaCost()
             setColorsOfDeck(it.getColor())
-            deckCardAdapter.submitList(it.getSortedByType())
+            deckCardAdapter.submitList(it.filterUnique())
             deckCardAdapter.notifyDataSetChanged()
         }
     }

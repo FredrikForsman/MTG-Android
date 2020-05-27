@@ -51,7 +51,7 @@ class HomeFragment : BaseFragment() {
         textShowAllDecks.visibility = View.GONE
 
         buttonCreateDecks.setOnClickListener {
-            fragmentManager?.navigateTo(CreateDeckFragment(), TAG_HOME)
+            parentFragmentManager.navigateTo(CreateDeckFragment(), TAG_HOME)
         }
     }
 
@@ -59,11 +59,11 @@ class HomeFragment : BaseFragment() {
         buttonCreateDecks.visibility = View.GONE
         recyclerviewMyDecks.visibility = View.VISIBLE
         adapter.onItemClick = { deck ->
-            fragmentManager?.navigateTo(DeckFragment.newInstance(deck.id), TAG_HOME)
+            parentFragmentManager.navigateTo(DeckFragment.newInstance(deck.id), TAG_HOME)
         }
 
         textShowAllDecks.setOnClickListener {
-            fragmentManager?.navigateTo(MyDecksFragment(), TAG_HOME)
+            parentFragmentManager.navigateTo(MyDecksFragment(), TAG_HOME)
         }
 
         adapter.submitList(decks)

@@ -109,9 +109,7 @@ class AddCardDeckFragment : BaseFragment() {
             GridLayoutManager(requireContext(), 3, GridLayoutManager.VERTICAL, false)
 
         adapter.onItemClick = { position ->
-            fragmentManager?.let {
-                AddCardDialog.newInstance(position).show(it, "add_card_dialog")
-            }
+            AddCardDialog.newInstance(position).show(parentFragmentManager, "add_card_dialog")
         }
 
         compositeDisposable.add(editTextSearch.afterTextChanged()
