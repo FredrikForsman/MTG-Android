@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_deck.view.*
 import se.forsman.deckbuilder.R
 import se.forsman.deckbuilder.core.extension.getColor
@@ -16,7 +17,8 @@ class DecksAdapter : ListAdapter<Deck, DecksAdapter.ViewHolder>(DiffCallback()) 
     var onItemClick: ((Deck) -> Unit)? = null
     var onItemLongClick: ((Deck) -> Unit)? = null
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bindTo(getItem(position))
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) =
+        holder.bindTo(getItem(position))
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -30,6 +32,13 @@ class DecksAdapter : ListAdapter<Deck, DecksAdapter.ViewHolder>(DiffCallback()) 
 
             itemView.textDeckName.text = deck.name
             setColorsOfDeck(deck.getColor())
+
+            Picasso.get()
+                .load(deck.cards.firstOrNull()?.imageArtOnly)
+                .error(R.drawable.gideon)
+                .placeholder(R.drawable.card_back)
+                .fit()
+                .into(itemView.imageDeck)
 
             itemView.setOnClickListener {
                 onItemClick?.invoke(deck)

@@ -1,16 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="100dp"
-    android:layout_height="140dp"
+    android:layout_height="156dp"
     android:layout_margin="4dp"
     android:elevation="4dp"
-    xmlns:tools="http://schemas.android.com/tools"
     tools:background="@android:color/black">
+
+    <ImageView
+        android:id="@+id/imageFirst"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:src="@drawable/diamond"
+        app:layout_constraintEnd_toStartOf="@+id/imageSecond"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageSecond"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:src="@drawable/diamond"
+        app:layout_constraintEnd_toStartOf="@+id/imageThird"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imageFirst"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageThird"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:src="@drawable/diamond"
+        app:layout_constraintEnd_toStartOf="@+id/imageFourth"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imageSecond"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageFourth"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:src="@drawable/diamond"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imageThird"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageCard"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageFirst"
+        tools:src="@drawable/gideon" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

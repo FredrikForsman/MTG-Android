@@ -9,9 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_card.view.*
 import se.forsman.deckbuilder.R
-import se.forsman.deckbuilder.features.search.model.MtgCard
+import se.forsman.deckbuilder.features.decks.CardCount
 
-class DeckCardAdapter : ListAdapter<MtgCard, DeckCardAdapter.ViewHolder>(DiffCallback()) {
+class DeckCardAdapter : ListAdapter<CardCount, DeckCardAdapter.ViewHolder>(DiffCallback()) {
 
     var onItemClick: ((Int) -> Unit)? = null
 
@@ -27,26 +27,70 @@ class DeckCardAdapter : ListAdapter<MtgCard, DeckCardAdapter.ViewHolder>(DiffCal
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bindTo(card: MtgCard) {
+        fun bindTo(cardCount: CardCount) {
+
             Picasso.get()
-                .load(card.imageUrl)
+                .load(cardCount.card.imageUrlLarge)
                 .error(R.drawable.card_back)
                 .placeholder(R.drawable.card_back)
-                .resize(100, 140)
+                .fit()
                 .into(itemView.imageCard)
+
+            showNumberOfCardInDeck(cardCount.count)
 
             itemView.setOnClickListener {
                 onItemClick?.invoke(this.adapterPosition)
             }
         }
+
+        internal fun showNumberOfCardInDeck(count: Int?) {
+            when (count) {
+                0 -> {
+                    itemView.imageFirst.isSelected = false
+                    itemView.imageSecond.isSelected = false
+                    itemView.imageThird.isSelected = false
+                    itemView.imageFourth.isSelected = false
+                }
+                1 -> {
+                    itemView.imageFirst.isSelected = true
+                    itemView.imageSecond.isSelected = false
+                    itemView.imageThird.isSelected = false
+                    itemView.imageFourth.isSelected = false
+                }
+                2 -> {
+                    itemView.imageFirst.isSelected = true
+                    itemView.imageSecond.isSelected = true
+                    itemView.imageThird.isSelected = false
+                    itemView.imageFourth.isSelected = false
+                }
+                3 -> {
+                    itemView.imageFirst.isSelected = true
+                    itemView.imageSecond.isSelected = true
+                    itemView.imageThird.isSelected = true
+                    itemView.imageFourth.isSelected = false
+                }
+                4 -> {
+                    itemView.imageFirst.isSelected = true
+                    itemView.imageSecond.isSelected = true
+                    itemView.imageThird.isSelected = true
+                    itemView.imageFourth.isSelected = true
+                }
+                else -> {
+                    itemView.imageFirst.isSelected = false
+                    itemView.imageSecond.isSelected = false
+                    itemView.imageThird.isSelected = false
+                    itemView.imageFourth.isSelected = false
+                }
+            }
+        }
     }
 
-    private class DiffCallback : DiffUtil.ItemCallback<MtgCard>() {
-        override fun areItemsTheSame(oldItem: MtgCard, newItem: MtgCard): Boolean {
-            return oldItem.name == newItem.name
+    private class DiffCallback : DiffUtil.ItemCallback<CardCount>() {
+        override fun areItemsTheSame(oldItem: CardCount, newItem: CardCount): Boolean {
+            return oldItem.card.name == newItem.card.name
         }
 
-        override fun areContentsTheSame(oldItem: MtgCard, newItem: MtgCard): Boolean {
+        override fun areContentsTheSame(oldItem: CardCount, newItem: CardCount): Boolean {
             return oldItem == newItem
         }
     }

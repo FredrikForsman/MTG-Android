@@ -17,7 +17,7 @@ class CardAdapter : ListAdapter<MtgCard, CardAdapter.ViewHolder>(DiffCallback())
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_card, parent, false)
+            .inflate(R.layout.item_card_search, parent, false)
         return ViewHolder(view)
     }
 

@@ -5,8 +5,8 @@ import android.view.View
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.dialog_card.*
 import se.forsman.deckbuilder.R
+import se.forsman.deckbuilder.core.extension.filterUnique
 import se.forsman.deckbuilder.core.extension.getCardsWithGivenName
-import se.forsman.deckbuilder.core.extension.getSortedByType
 import se.forsman.deckbuilder.core.extension.observe
 import se.forsman.deckbuilder.features.search.model.MtgCard
 
@@ -16,7 +16,7 @@ class RemoveCardDialog : CardDialog() {
         arguments?.get(ARG_CARDS_POSITION) as Int
     }
 
-    override fun getCard(): MtgCard? = deckViewModel.getDeckToEdit().value?.getSortedByType()?.get(cardPosition)
+    override fun getCard(): MtgCard? = deckViewModel.getDeckToEdit().value?.filterUnique()?.get(cardPosition)?.card
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

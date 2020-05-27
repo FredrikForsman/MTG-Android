@@ -1,5 +1,6 @@
 package se.forsman.deckbuilder.core.extension
 
+import se.forsman.deckbuilder.features.decks.CardCount
 import se.forsman.deckbuilder.features.decks.Deck
 import se.forsman.deckbuilder.features.search.model.MtgCard
 import java.util.*
@@ -51,5 +52,14 @@ fun Deck.getCardsWithGivenName(name: String): List<MtgCard> {
 }
 
 fun Deck.getSortedByType(): MutableList<MtgCard> {
-    return this.cards.sortedWith(compareBy({ it.cardType?.value }, { it.name })).toMutableList()
+    return this.cards.sortedWith(compareBy({ it.cardType?.value }, { it.cmc })).toMutableList()
+}
+
+fun Deck.filterUnique(): List<CardCount> {
+    val cards = mutableListOf<CardCount>()
+    this.cards.forEach { card ->
+        cards.add(CardCount(card, Collections.frequency(this.cards, card)))
+    }
+    return cards.distinct()
+        .sortedWith(compareBy({it.card.cardType?.value}, {it.card.cmc}))
 }

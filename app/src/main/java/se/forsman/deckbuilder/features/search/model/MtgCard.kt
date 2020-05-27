@@ -21,6 +21,8 @@ data class MtgCard(
     val colors: List<String>?,
     @field:SerializedName("color_identity")
     val color_identity: List<String>,
+    @field:SerializedName("art_crop")
+    val imageArtOnly: String?,
     @field:SerializedName("imageUrl")
     val imageUrl: String?,
     @field:SerializedName("imageUrlLarge")
