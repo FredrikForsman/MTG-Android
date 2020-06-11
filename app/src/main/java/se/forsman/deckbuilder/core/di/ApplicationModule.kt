@@ -23,7 +23,7 @@ import se.forsman.deckbuilder.features.decks.mydecks.CreateDeckViewModel
 import se.forsman.deckbuilder.features.decks.mydecks.DecksAdapter
 import se.forsman.deckbuilder.features.search.CardRepository
 import se.forsman.deckbuilder.features.search.CardRepositoryImpl
-import se.forsman.deckbuilder.features.search.model.CardDao
+import se.forsman.deckbuilder.features.search.CardDao
 import se.forsman.deckbuilder.features.search.scryfall.CardService
 import java.util.concurrent.TimeUnit
 

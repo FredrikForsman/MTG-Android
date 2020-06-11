@@ -29,10 +29,10 @@ class CardAdapter : ListAdapter<MtgCard, CardAdapter.ViewHolder>(DiffCallback())
 
         fun bindTo(card: MtgCard) {
             Picasso.get()
-                .load(card.imageUrl)
+                .load(card.imageUrlLarge)
                 .error(R.drawable.card_back)
                 .placeholder(R.drawable.card_back)
-                .resize(100, 140)
+                .fit()
                 .into(itemView.imageCard)
 
             itemView.setOnClickListener {

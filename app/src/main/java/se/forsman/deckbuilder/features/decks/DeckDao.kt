@@ -6,6 +6,7 @@ import io.reactivex.Single
 @Dao
 interface DeckDao {
 
+    @Transaction
     @Query("SELECT * FROM magicdeck")
     fun getDecks(): Single<List<Deck>>
 

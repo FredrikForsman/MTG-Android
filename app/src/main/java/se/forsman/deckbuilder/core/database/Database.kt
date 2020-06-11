@@ -8,7 +8,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import se.forsman.deckbuilder.features.decks.Deck
 import se.forsman.deckbuilder.features.decks.DeckDao
-import se.forsman.deckbuilder.features.search.model.CardDao
+import se.forsman.deckbuilder.features.search.CardDao
 import se.forsman.deckbuilder.features.search.model.CardTypeConverter
 import se.forsman.deckbuilder.features.search.model.MtgCard
 

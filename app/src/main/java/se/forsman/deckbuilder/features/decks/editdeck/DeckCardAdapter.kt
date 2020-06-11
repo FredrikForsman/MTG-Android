@@ -16,9 +16,10 @@ class DeckCardAdapter : ListAdapter<CardCount, DeckCardAdapter.ViewHolder>(DiffC
     var onItemClick: ((Int) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_card, parent, false)
-        return ViewHolder(view)
+        return ViewHolder(
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.item_card, parent, false)
+        )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -43,7 +44,7 @@ class DeckCardAdapter : ListAdapter<CardCount, DeckCardAdapter.ViewHolder>(DiffC
             }
         }
 
-        internal fun showNumberOfCardInDeck(count: Int?) {
+        private fun showNumberOfCardInDeck(count: Int?) {
             when (count) {
                 0 -> {
                     itemView.imageFirst.isSelected = false
@@ -94,5 +95,4 @@ class DeckCardAdapter : ListAdapter<CardCount, DeckCardAdapter.ViewHolder>(DiffC
             return oldItem == newItem
         }
     }
-
 }
