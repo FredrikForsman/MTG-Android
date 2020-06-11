@@ -39,6 +39,7 @@ class AddCardDeckFragment : BaseFragment() {
     }
 
     private fun initView() {
+        progressBar.visibility = View.VISIBLE
         cardViewModel.loadCards()
 
         val filter = mutableSetOf<String>()
@@ -122,11 +123,14 @@ class AddCardDeckFragment : BaseFragment() {
 
     private fun showCards(cards: List<MtgCard>?) {
         cards?.let {
-            adapter.submitList(cards)
+            adapter.submitList(cards) {
+                progressBar.visibility = View.GONE
+            }
         }
     }
 
     private fun search(query: String, colors: Set<String>) {
+        progressBar.visibility = View.VISIBLE
         cardViewModel.filter(query, colors)
     }
 
