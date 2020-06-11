@@ -1,6 +1,5 @@
 package se.forsman.deckbuilder.features.decks.mydecks
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -25,10 +24,7 @@ class CreateDeckViewModel(private val deckRepository: DeckRepository) : BaseView
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                     { createdDeck -> this.deck.value = createdDeck },
-                    { error ->
-                        Log.e("DECK", "error creating deck: $error")
-                        handleFailure(Failure.DatabaseError)
-                     }
+                    { error -> handleFailure(Failure.DatabaseError) }
                 )
         )
     }
