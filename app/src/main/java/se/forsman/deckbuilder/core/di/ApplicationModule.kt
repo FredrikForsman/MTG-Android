@@ -19,6 +19,7 @@ import se.forsman.deckbuilder.features.decks.DeckViewModel
 import se.forsman.deckbuilder.features.decks.editdeck.CardAdapter
 import se.forsman.deckbuilder.features.decks.editdeck.CardViewModel
 import se.forsman.deckbuilder.features.decks.editdeck.DeckCardAdapter
+import se.forsman.deckbuilder.features.decks.editdeck.DeckCardTextAdapter
 import se.forsman.deckbuilder.features.decks.mydecks.CreateDeckViewModel
 import se.forsman.deckbuilder.features.decks.mydecks.DecksAdapter
 import se.forsman.deckbuilder.features.search.CardRepository
@@ -52,6 +53,7 @@ val decksModule = module {
 
     factory { DecksAdapter() }
     factory { DeckCardAdapter() }
+    factory { DeckCardTextAdapter() }
     factory { CardAdapter() }
 }
 
@@ -78,4 +80,4 @@ private fun provideScryfallDao(database: Database): CardDao = database.scryfallD
 
 private val gson: Gson = GsonBuilder().create()
 
-private const val SCRYFALL_BASE_URL = "https://api.scryfall.com/bulk-data/"
+private const val SCRYFALL_BASE_URL = "https://api.scryfall.com/"

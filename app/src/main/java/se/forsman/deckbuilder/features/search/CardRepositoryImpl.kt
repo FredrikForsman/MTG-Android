@@ -4,8 +4,12 @@ import com.google.gson.Gson
 import com.google.gson.stream.JsonReader
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
-import se.forsman.deckbuilder.features.search.model.*
+import se.forsman.deckbuilder.features.search.model.CardType
+import se.forsman.deckbuilder.features.search.model.MtgCard
+import se.forsman.deckbuilder.features.search.model.ScryfallCard
+import se.forsman.deckbuilder.features.search.model.SearchFilter
 import se.forsman.deckbuilder.features.search.scryfall.CardService
+import se.forsman.deckbuilder.features.search.scryfall.Symbology
 
 class CardRepositoryImpl(
     private val cardService: CardService,
@@ -45,6 +49,25 @@ class CardRepositoryImpl(
         }
     }
 
+    override fun getSymbology(): Single<List<Symbology>> {
+        return cardDao.getSymbology().flatMap { result ->
+            if (result.isNullOrEmpty()) {
+                cardService.getSymbology()
+                    .subscribeOn(Schedulers.io())
+                    .map { bulk ->
+                        bulk.data
+                    }
+                    .doAfterSuccess { data ->
+                        data?.forEach { symbol ->
+                            cardDao.insertSymbology(symbol)
+                        }
+                    }
+            } else {
+                Single.just(result)
+            }
+        }
+    }
+
     private fun getJsonFromScryfall(): Single<List<MtgCard>> {
         return cardService.getScryfallBulkData().flatMap {
             cardService.getCardsFromScryfall(it.downloadUri).flatMap { response ->
@@ -80,6 +103,7 @@ class CardRepositoryImpl(
                                     card.name,
                                     card.set,
                                     card.cmc.toInt(),
+                                    card.mana_cost,
                                     card.colors,
                                     card.color_identity,
                                     card.image_uris?.art_crop,
@@ -97,6 +121,7 @@ class CardRepositoryImpl(
                                     card.name,
                                     card.set,
                                     card.cmc.toInt(),
+                                    card.mana_cost,
                                     card.colors,
                                     card.color_identity,
                                     card.image_uris?.art_crop,
@@ -114,6 +139,7 @@ class CardRepositoryImpl(
                                     card.name,
                                     card.set,
                                     card.cmc.toInt(),
+                                    card.mana_cost,
                                     card.colors,
                                     card.color_identity,
                                     card.image_uris?.art_crop,
@@ -131,6 +157,7 @@ class CardRepositoryImpl(
                                     card.name,
                                     card.set,
                                     card.cmc.toInt(),
+                                    card.mana_cost,
                                     card.colors,
                                     card.color_identity,
                                     card.image_uris?.art_crop,
@@ -148,6 +175,7 @@ class CardRepositoryImpl(
                                     card.name,
                                     card.set,
                                     card.cmc.toInt(),
+                                    card.mana_cost,
                                     card.colors,
                                     card.color_identity,
                                     card.image_uris?.art_crop,
@@ -165,6 +193,7 @@ class CardRepositoryImpl(
                                     card.name,
                                     card.set,
                                     card.cmc.toInt(),
+                                    card.mana_cost,
                                     card.colors,
                                     card.color_identity,
                                     card.image_uris?.art_crop,
@@ -182,6 +211,7 @@ class CardRepositoryImpl(
                                     card.name,
                                     card.set,
                                     card.cmc.toInt(),
+                                    card.mana_cost,
                                     card.colors,
                                     card.color_identity,
                                     card.image_uris?.art_crop,
@@ -199,6 +229,7 @@ class CardRepositoryImpl(
                                     card.name,
                                     card.set,
                                     card.cmc.toInt(),
+                                    card.mana_cost,
                                     card.colors,
                                     card.color_identity,
                                     card.image_uris?.art_crop,

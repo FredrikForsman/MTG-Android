@@ -14,7 +14,10 @@ fun Deck.getAverageManaCost(): String {
         }
     }
 
-    return if (list.isEmpty()) "--" else String.format("%.1f", (totalManaCost.toDouble() / list.size.toDouble()))
+    return if (list.isEmpty()) "--" else String.format(
+        "%.1f",
+        (totalManaCost.toDouble() / list.size.toDouble())
+    )
 }
 
 fun Deck.getColor(): Set<String> {
@@ -61,5 +64,5 @@ fun Deck.filterUnique(): List<CardCount> {
         cards.add(CardCount(card, Collections.frequency(this.cards, card)))
     }
     return cards.distinct()
-        .sortedWith(compareBy({it.card.cardType?.value}, {it.card.cmc}))
+        .sortedWith(compareBy({ it.card.cardType?.value }, { it.card.cmc }))
 }

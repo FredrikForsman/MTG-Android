@@ -8,10 +8,13 @@ import retrofit2.http.Url
 
 interface CardService {
 
-    @GET("oracle-cards")
+    @GET("bulk-data/oracle-cards")
     fun getScryfallBulkData(): Single<BulkData>
 
     @Streaming
     @GET
     fun getCardsFromScryfall(@Url uri: String): Single<ResponseBody>
+
+    @GET("symbology")
+    fun getSymbology(): Single<SymbologyBulk>
 }

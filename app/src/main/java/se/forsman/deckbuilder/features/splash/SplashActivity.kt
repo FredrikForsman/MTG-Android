@@ -26,6 +26,7 @@ class SplashActivity : AppCompatActivity(), KoinComponent {
         failure(viewModel.getErrorMessage(), this::handleFailure)
 
         viewModel.loadCards()
+        viewModel.getSymbology()
     }
 
     private fun navigateToApp(cards: List<MtgCard>?) {

@@ -25,7 +25,7 @@ class CardViewModel(private val cardRepository: CardRepository) : BaseViewModel(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                     { cards -> this.cards.value = cards },
-                    { handleFailure(Failure.DatabaseError)}
+                    { handleFailure(Failure.DatabaseError) }
                 )
         )
     }
@@ -42,5 +42,22 @@ class CardViewModel(private val cardRepository: CardRepository) : BaseViewModel(
                     { handleFailure(Failure.DatabaseError) }
                 )
         )
+    }
+
+    fun getSymbology() {
+        compositeDisposable.add(
+            cardRepository.getSymbology()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    { symbology ->  },
+                    { error ->  }
+                )
+        )
+    }
+
+    override fun onCleared() {
+        compositeDisposable.clear()
+        super.onCleared()
     }
 }

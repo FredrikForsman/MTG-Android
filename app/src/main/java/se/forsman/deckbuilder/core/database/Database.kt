@@ -11,9 +11,10 @@ import se.forsman.deckbuilder.features.decks.DeckDao
 import se.forsman.deckbuilder.features.search.CardDao
 import se.forsman.deckbuilder.features.search.model.CardTypeConverter
 import se.forsman.deckbuilder.features.search.model.MtgCard
+import se.forsman.deckbuilder.features.search.scryfall.Symbology
 
-@Database(entities = [Deck::class, MtgCard::class], version = 1, exportSchema = false)
-@TypeConverters(value = arrayOf(Converter::class, CardConverter::class, CardTypeConverter::class))
+@Database(entities = [Deck::class, MtgCard::class, Symbology::class], version = 1, exportSchema = false)
+@TypeConverters(value = [Converter::class, CardConverter::class, CardTypeConverter::class])
 abstract class Database : RoomDatabase() {
     abstract fun deckDao(): DeckDao
     abstract fun scryfallDao(): CardDao

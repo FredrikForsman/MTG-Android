@@ -12,6 +12,7 @@ import se.forsman.deckbuilder.core.extension.*
 import se.forsman.deckbuilder.features.decks.Deck
 import se.forsman.deckbuilder.features.decks.DeckViewModel
 import se.forsman.deckbuilder.features.decks.editdeck.DeckCardAdapter
+import se.forsman.deckbuilder.features.decks.editdeck.DeckCardTextAdapter
 import se.forsman.deckbuilder.features.decks.editdeck.EditDeckFragment
 import se.forsman.deckbuilder.features.decks.editdeck.RemoveCardDialog
 
@@ -19,6 +20,7 @@ class DeckFragment : BaseFragment() {
 
     private val deckViewModel by sharedViewModel<DeckViewModel>()
     private val deckCardAdapter by inject<DeckCardAdapter>()
+    private val deckCardTextAdapter by inject<DeckCardTextAdapter>()
 
     private val deckId: Long? by lazy {
         arguments?.get(ARG_DECK_NAME) as Long?
@@ -38,6 +40,12 @@ class DeckFragment : BaseFragment() {
     private fun initView() {
 
         deckViewModel.getDeckById(deckId)
+
+        recyclerviewDeckList.adapter = deckCardTextAdapter
+        deckCardTextAdapter.onItemClick = { position ->
+            RemoveCardDialog.newInstance(position)
+                .show(parentFragmentManager, "remove_card_dialog")
+        }
 
         recyclerviewDeck.adapter = deckCardAdapter
         recyclerviewDeck.layoutManager =
@@ -72,6 +80,8 @@ class DeckFragment : BaseFragment() {
             setColorsOfDeck(it.getColor())
             deckCardAdapter.submitList(it.filterUnique())
             deckCardAdapter.notifyDataSetChanged()
+            deckCardTextAdapter.submitList(it.filterUnique())
+            deckCardTextAdapter.notifyDataSetChanged()
         }
     }
 

@@ -17,6 +17,8 @@ data class MtgCard(
     val `set`: String?,
     @field:SerializedName("cmc")
     val cmc: Int?,
+    @field:SerializedName("mana_cost")
+    val manaCost: String?,
     @field:SerializedName("colors")
     val colors: List<String>?,
     @field:SerializedName("color_identity")
