@@ -16,15 +16,11 @@ import se.forsman.deckbuilder.features.decks.DeckDao
 import se.forsman.deckbuilder.features.decks.DeckRepository
 import se.forsman.deckbuilder.features.decks.DeckRepositoryImpl
 import se.forsman.deckbuilder.features.decks.DeckViewModel
-import se.forsman.deckbuilder.features.decks.editdeck.CardAdapter
 import se.forsman.deckbuilder.features.decks.editdeck.CardViewModel
-import se.forsman.deckbuilder.features.decks.editdeck.DeckCardAdapter
-import se.forsman.deckbuilder.features.decks.editdeck.DeckCardTextAdapter
 import se.forsman.deckbuilder.features.decks.mydecks.CreateDeckViewModel
-import se.forsman.deckbuilder.features.decks.mydecks.DecksAdapter
+import se.forsman.deckbuilder.features.search.CardDao
 import se.forsman.deckbuilder.features.search.CardRepository
 import se.forsman.deckbuilder.features.search.CardRepositoryImpl
-import se.forsman.deckbuilder.features.search.CardDao
 import se.forsman.deckbuilder.features.search.scryfall.CardService
 import java.util.concurrent.TimeUnit
 
@@ -50,11 +46,6 @@ val decksModule = module {
     viewModel { DeckViewModel(get()) }
     viewModel { CardViewModel(get()) }
     viewModel { CreateDeckViewModel(get()) }
-
-    factory { DecksAdapter() }
-    factory { DeckCardAdapter() }
-    factory { DeckCardTextAdapter() }
-    factory { CardAdapter() }
 }
 
 inline fun <reified T> createWebService(retrofit: Retrofit): T = retrofit.create(T::class.java)

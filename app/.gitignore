@@ -1,1 +1,24 @@
+#Intellij project files
+*.iml
+/captures
+
+#Gradle generated files
+.gradle
+
+#Local configuration file
+/local.properties
+
+#OSX
+.DS_Store
+
+#Built application files
 /build
+/*/build
+/*/*/build
+/.idea
+/.idea/*
+.idea/*
+
+#Others
+.externalNativeBuild
+.cxx

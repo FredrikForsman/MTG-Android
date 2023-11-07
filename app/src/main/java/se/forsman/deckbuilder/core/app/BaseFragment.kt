@@ -20,6 +20,7 @@ abstract class BaseFragment : Fragment() {
     internal fun handleFailure(failure: Failure?) {
         when (failure) {
             is Failure.DatabaseError -> { showError(R.string.failure_database) }
+            else -> {}
         }
     }
 

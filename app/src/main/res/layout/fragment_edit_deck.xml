@@ -30,7 +30,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="24dp"
                 android:src="@drawable/ic_navigate"
-                android:tint="@color/colorPrimaryLight"
+                app:tint="@color/colorPrimaryLight"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
