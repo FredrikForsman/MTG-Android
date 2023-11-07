@@ -97,8 +97,8 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.10.0")
     implementation("jp.wasabeef:glide-transformations:4.0.0")
 
-    // picasso
-    implementation("com.squareup.picasso:picasso:2.71828")
+    // coil
+    implementation("io.coil-kt:coil-compose:2.5.0")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

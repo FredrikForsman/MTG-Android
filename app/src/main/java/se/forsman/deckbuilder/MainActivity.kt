@@ -1,8 +1,17 @@
 package se.forsman.deckbuilder
 
 import android.os.Bundle
+import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.material.Surface
+import androidx.compose.ui.res.painterResource
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import coil.annotation.ExperimentalCoilApi
+import coil.compose.AsyncImage
+import com.bumptech.glide.Glide
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import se.forsman.deckbuilder.core.exception.Failure
 import se.forsman.deckbuilder.core.extension.failure
@@ -13,6 +22,7 @@ import se.forsman.deckbuilder.features.search.model.MtgCard
 class MainActivity : AppCompatActivity() {
 
     private val viewModel by viewModel<CardViewModel>()
+    private var glide: Glide? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
@@ -23,9 +33,26 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.loadCards()
         viewModel.getSymbology()
+        glide = Glide.get(this)
     }
 
+    @OptIn(ExperimentalCoilApi::class)
     private fun navigateToApp(cards: List<MtgCard>?) {
+        setContent {
+            Surface {
+                LazyVerticalGrid(columns = GridCells.Fixed(3)) {
+                    cards?.let {
+                        items(it) { card ->
+                            AsyncImage(
+                                model = card.imageUrl,
+                                contentDescription = card.name,
+                                placeholder = painterResource(id = R.drawable.card_back),
+                            )
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private fun handleFailure(failure: Failure?) {
