@@ -72,7 +72,8 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel:2.6.2")
     // rx
-    implementation("io.reactivex.rxjava2:rxjava:2.2.14")
+    implementation("io.reactivex.rxjava3:rxandroid:3.0.2")
+    implementation("io.reactivex.rxjava3:rxjava:3.1.5")
     implementation("com.jakewharton.rxbinding3:rxbinding:3.0.0")
     // json parse
     implementation("com.squareup.retrofit2:converter-gson:2.6.2")
@@ -82,13 +83,13 @@ dependencies {
     implementation("androidx.room:room-runtime:$room_version")
     annotationProcessor("androidx.room:room-compiler:$room_version")
     kapt("androidx.room:room-compiler:$room_version")
-    implementation("androidx.room:room-rxjava2:$room_version")
+    implementation("androidx.room:room-rxjava3:$room_version")
     // koin
     implementation("org.koin:koin-androidx-viewmodel:2.2.2")
     implementation("org.koin:koin-androidx-scope:2.2.2")
     // retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:adapter-rxjava2:2.9.0")
+    implementation("com.squareup.retrofit2:adapter-rxjava3:2.9.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
 
     implementation("com.jaeger.statusbarutil:library:1.5.1")

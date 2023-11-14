@@ -2,9 +2,9 @@ package se.forsman.deckbuilder.features.decks.mydecks
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.schedulers.Schedulers
 import se.forsman.deckbuilder.core.app.BaseViewModel
 import se.forsman.deckbuilder.core.exception.Failure
 import se.forsman.deckbuilder.features.decks.Deck
@@ -24,8 +24,8 @@ class CreateDeckViewModel(private val deckRepository: DeckRepository) : BaseView
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                     { createdDeck -> this.deck.value = createdDeck },
-                    { error -> handleFailure(Failure.DatabaseError) }
-                )
+                    { error -> handleFailure(Failure.DatabaseError) },
+                ),
         )
     }
 

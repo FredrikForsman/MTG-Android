@@ -1,9 +1,8 @@
 package se.forsman.deckbuilder.features.decks
 
-import io.reactivex.Single
+import io.reactivex.rxjava3.core.Single
 
 interface DeckRepository {
-
     fun getDecks(): Single<List<Deck>>
     fun getDeckById(id: Long?): Single<Deck>
     fun saveDeck(deck: Deck): Single<Deck>

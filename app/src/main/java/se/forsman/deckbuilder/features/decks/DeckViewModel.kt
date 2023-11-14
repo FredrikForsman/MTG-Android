@@ -2,9 +2,9 @@ package se.forsman.deckbuilder.features.decks
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.schedulers.Schedulers
 import se.forsman.deckbuilder.core.app.BaseViewModel
 import se.forsman.deckbuilder.core.exception.Failure
 
@@ -25,8 +25,8 @@ class DeckViewModel(private val deckRepository: DeckRepository) : BaseViewModel(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                     { decks -> this.decks.value = decks },
-                    { handleFailure(Failure.DatabaseError) }
-                )
+                    { handleFailure(Failure.DatabaseError) },
+                ),
         )
     }
 
@@ -37,8 +37,8 @@ class DeckViewModel(private val deckRepository: DeckRepository) : BaseViewModel(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                     { deck -> deckToEdit.value = deck },
-                    { handleFailure(Failure.DatabaseError) }
-                )
+                    { handleFailure(Failure.DatabaseError) },
+                ),
         )
     }
 
@@ -50,8 +50,8 @@ class DeckViewModel(private val deckRepository: DeckRepository) : BaseViewModel(
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
                         { deck -> deckToEdit.value = deck },
-                        { handleFailure(Failure.DatabaseError) }
-                    )
+                        { handleFailure(Failure.DatabaseError) },
+                    ),
             )
         }
     }
@@ -64,8 +64,8 @@ class DeckViewModel(private val deckRepository: DeckRepository) : BaseViewModel(
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
                         { decks -> this.decks.value = decks },
-                        { handleFailure(Failure.DatabaseError) }
-                    )
+                        { handleFailure(Failure.DatabaseError) },
+                    ),
             )
         }
     }

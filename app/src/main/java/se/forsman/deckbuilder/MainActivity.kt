@@ -3,13 +3,17 @@ package se.forsman.deckbuilder
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.Surface
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import coil.annotation.ExperimentalCoilApi
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import com.bumptech.glide.Glide
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -28,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         installSplashScreen()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        observe(viewModel.getCards(), this::navigateToApp)
+        observe(viewModel.cards, this::navigateToApp)
         failure(viewModel.getErrorMessage(), this::handleFailure)
 
         viewModel.loadCards()
@@ -36,21 +40,31 @@ class MainActivity : AppCompatActivity() {
         glide = Glide.get(this)
     }
 
-    @OptIn(ExperimentalCoilApi::class)
     private fun navigateToApp(cards: List<MtgCard>?) {
         setContent {
             Surface {
-                LazyVerticalGrid(columns = GridCells.Fixed(3)) {
-                    cards?.let {
-                        items(it) { card ->
-                            AsyncImage(
-                                model = card.imageUrl,
-                                contentDescription = card.name,
-                                placeholder = painterResource(id = R.drawable.card_back),
-                            )
+                val navController = rememberNavController()
+
+                NavHost(
+                    modifier = Modifier.fillMaxSize(),
+                    navController = navController,
+                    startDestination = "home",
+                ) {
+                    composable("home") {
+                        LazyVerticalGrid(columns = GridCells.Fixed(3)) {
+                            cards?.let {
+                                items(it) { card ->
+                                    AsyncImage(
+                                        model = card.imageUrl,
+                                        contentDescription = card.name,
+                                        placeholder = painterResource(id = R.drawable.card_back),
+                                    )
+                                }
+                            }
                         }
                     }
                 }
+
             }
         }
     }

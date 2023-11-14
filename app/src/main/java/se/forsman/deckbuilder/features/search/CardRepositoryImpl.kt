@@ -2,8 +2,8 @@ package se.forsman.deckbuilder.features.search
 
 import com.google.gson.Gson
 import com.google.gson.stream.JsonReader
-import io.reactivex.Single
-import io.reactivex.schedulers.Schedulers
+import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.schedulers.Schedulers
 import se.forsman.deckbuilder.features.search.model.CardType
 import se.forsman.deckbuilder.features.search.model.MtgCard
 import se.forsman.deckbuilder.features.search.model.ScryfallCard
@@ -50,22 +50,7 @@ class CardRepositoryImpl(
     }
 
     override fun getSymbology(): Single<List<Symbology>> {
-        return cardDao.getSymbology().flatMap { result ->
-            if (result.isNullOrEmpty()) {
-                cardService.getSymbology()
-                    .subscribeOn(Schedulers.io())
-                    .map { bulk ->
-                        bulk.data
-                    }
-                    .doAfterSuccess { data ->
-                        data?.forEach { symbol ->
-                            cardDao.insertSymbology(symbol)
-                        }
-                    }
-            } else {
-                Single.just(result)
-            }
-        }
+        return cardDao.getSymbology()
     }
 
     private fun getJsonFromScryfall(): Single<List<MtgCard>> {
@@ -73,7 +58,9 @@ class CardRepositoryImpl(
             cardService.getCardsFromScryfall(it.downloadUri).flatMap { response ->
                 JsonReader(response.charStream())
                     .use { reader ->
-                        Single.just(parseJson(reader))
+                        parseJson(reader)?.let { cards ->
+                            Single.just(cards)
+                        } ?: Single.error(Throwable("Failed to fetch data"))
                     }
             }
         }

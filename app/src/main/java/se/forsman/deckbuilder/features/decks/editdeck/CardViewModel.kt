@@ -2,9 +2,9 @@ package se.forsman.deckbuilder.features.decks.editdeck
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.schedulers.Schedulers
 import se.forsman.deckbuilder.core.app.BaseViewModel
 import se.forsman.deckbuilder.core.exception.Failure
 import se.forsman.deckbuilder.features.search.CardRepository
@@ -13,8 +13,8 @@ import se.forsman.deckbuilder.features.search.model.SearchFilter
 
 class CardViewModel(private val cardRepository: CardRepository) : BaseViewModel() {
 
-    private val cards = MutableLiveData<List<MtgCard>>()
-    fun getCards(): LiveData<List<MtgCard>> = cards
+    private val _cards = MutableLiveData<List<MtgCard>>()
+    val cards: LiveData<List<MtgCard>> = _cards
 
     private val compositeDisposable = CompositeDisposable()
 
@@ -24,9 +24,9 @@ class CardViewModel(private val cardRepository: CardRepository) : BaseViewModel(
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                    { cards -> this.cards.value = cards },
-                    { handleFailure(Failure.DatabaseError) }
-                )
+                    { cards -> _cards.value = cards },
+                    { handleFailure(Failure.DatabaseError) },
+                ),
         )
     }
 
@@ -37,10 +37,10 @@ class CardViewModel(private val cardRepository: CardRepository) : BaseViewModel(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                     { cards ->
-                        this.cards.value = cards
+                        _cards.value = cards
                     },
-                    { handleFailure(Failure.DatabaseError) }
-                )
+                    { handleFailure(Failure.DatabaseError) },
+                ),
         )
     }
 
@@ -50,9 +50,9 @@ class CardViewModel(private val cardRepository: CardRepository) : BaseViewModel(
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                    { symbology ->  },
-                    { error ->  }
-                )
+                    { symbology -> },
+                    { error -> },
+                ),
         )
     }
 

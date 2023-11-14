@@ -1,6 +1,6 @@
 package se.forsman.deckbuilder.features.search.scryfall
 
-import io.reactivex.Single
+import io.reactivex.rxjava3.core.Single
 import okhttp3.ResponseBody
 import retrofit2.http.GET
 import retrofit2.http.Streaming

@@ -13,7 +13,11 @@ import se.forsman.deckbuilder.features.search.model.CardTypeConverter
 import se.forsman.deckbuilder.features.search.model.MtgCard
 import se.forsman.deckbuilder.features.search.scryfall.Symbology
 
-@Database(entities = [Deck::class, MtgCard::class, Symbology::class], version = 1, exportSchema = false)
+@Database(
+    entities = [Deck::class, MtgCard::class, Symbology::class],
+    version = 1,
+    exportSchema = false,
+)
 @TypeConverters(value = [Converter::class, CardConverter::class, CardTypeConverter::class])
 abstract class Database : RoomDatabase() {
     abstract fun deckDao(): DeckDao
@@ -27,7 +31,6 @@ class Converter {
         return cards?.let {
             val gson = Gson()
             val type = object : TypeToken<List<String>>() {
-
             }.type
             gson.toJson(cards, type)
         }
@@ -38,12 +41,10 @@ class Converter {
         return magicCardsString?.let {
             val gson = Gson()
             val type = object : TypeToken<List<String>>() {
-
             }.type
             gson.fromJson(magicCardsString, type)
         }
     }
-
 }
 
 class CardConverter {
@@ -53,7 +54,6 @@ class CardConverter {
         return cards?.let {
             val gson = Gson()
             val type = object : TypeToken<List<MtgCard>>() {
-
             }.type
             gson.toJson(cards, type)
         }
@@ -64,10 +64,8 @@ class CardConverter {
         return magicCardsString?.let {
             val gson = Gson()
             val type = object : TypeToken<List<MtgCard>>() {
-
             }.type
             gson.fromJson(magicCardsString, type)
         }
     }
-
 }
