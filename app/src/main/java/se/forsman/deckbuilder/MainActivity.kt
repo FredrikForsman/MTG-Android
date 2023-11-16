@@ -13,7 +13,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import org.koin.androidx.compose.koinViewModel
+import se.forsman.deckbuilder.core.app.Routing
 import se.forsman.deckbuilder.features.decks.DeckViewModel
+import se.forsman.deckbuilder.features.decks.mydecks.CreateNewDeck
 import se.forsman.deckbuilder.features.decks.mydecks.MyDecksScreen
 import se.forsman.deckbuilder.features.splash.SplashScreen
 
@@ -41,14 +43,25 @@ class MainActivity : AppCompatActivity() {
                 NavHost(
                     modifier = Modifier.fillMaxSize(),
                     navController = navController,
-                    startDestination = "splash",
+                    startDestination = Routing.SPLASH,
                 ) {
-                    composable("decks") {
-                        MyDecksScreen(decks.value)
+                    composable(Routing.MY_DECKS) {
+                        MyDecksScreen(decks.value) {
+                            navController.navigate(Routing.CREATE_NEW_DECK)
+                        }
                     }
-                    composable("splash") {
+                    composable(
+                        route = Routing.SPLASH,
+                    ) {
                         SplashScreen {
-                            navController.navigate("decks")
+                            navController.navigate(Routing.MY_DECKS)
+                        }
+                    }
+                    composable(
+                        route = Routing.CREATE_NEW_DECK,
+                    ) {
+                        CreateNewDeck {
+                            navController.navigate(Routing.MY_DECKS)
                         }
                     }
                 }

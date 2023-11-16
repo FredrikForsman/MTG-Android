@@ -1,19 +1,18 @@
 package se.forsman.deckbuilder.features.decks.mydecks
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import se.forsman.deckbuilder.core.app.BaseViewModel
-import se.forsman.deckbuilder.core.exception.Failure
 import se.forsman.deckbuilder.features.decks.Deck
 import se.forsman.deckbuilder.features.decks.DeckRepository
 
 class CreateDeckViewModel(private val deckRepository: DeckRepository) : BaseViewModel() {
 
-    private val deck = MutableLiveData<Deck>()
-    fun getDeck(): LiveData<Deck> = deck
+    private val _state = MutableStateFlow<DeckCreationState>(DeckCreationState.Loading)
+    val state: StateFlow<DeckCreationState> = _state
 
     private val compositeDisposable = CompositeDisposable()
 
@@ -23,8 +22,17 @@ class CreateDeckViewModel(private val deckRepository: DeckRepository) : BaseView
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                    { createdDeck -> this.deck.value = createdDeck },
-                    { error -> handleFailure(Failure.DatabaseError) },
+                    { createdDeck ->
+                        createdDeck.id?.let { deckId ->
+                            _state.value = DeckCreationState.Success(deckId)
+                        } ?: kotlin.run {
+                            _state.value =
+                                DeckCreationState.Error(Throwable("Failed to created deck"))
+                        }
+                    },
+                    { error ->
+                        _state.value = DeckCreationState.Error(error)
+                    },
                 ),
         )
     }
@@ -33,4 +41,10 @@ class CreateDeckViewModel(private val deckRepository: DeckRepository) : BaseView
         compositeDisposable.dispose()
         super.onCleared()
     }
+}
+
+sealed class DeckCreationState {
+    object Loading : DeckCreationState()
+    data class Success(val deckId: Long) : DeckCreationState()
+    data class Error(val error: Throwable) : DeckCreationState()
 }

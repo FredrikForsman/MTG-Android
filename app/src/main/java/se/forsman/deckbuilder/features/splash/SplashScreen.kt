@@ -31,9 +31,8 @@ fun SplashScreen(
     Box(
         modifier = Modifier.fillMaxSize()
             .paint(
-                painterResource(id = R.drawable.app_background),
-                contentScale = ContentScale.Fit,
-                alpha = 0.8f,
+                painterResource(id = R.drawable.chandrablur),
+                contentScale = ContentScale.FillBounds,
             ),
         contentAlignment = Alignment.Center,
     ) {
