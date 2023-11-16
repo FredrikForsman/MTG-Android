@@ -14,7 +14,7 @@ import se.forsman.deckbuilder.features.search.scryfall.Symbology
 class CardRepositoryImpl(
     private val cardService: CardService,
     private val cardDao: CardDao,
-    private val gson: Gson
+    private val gson: Gson,
 ) : CardRepository {
 
     override fun getAllStandardCards(): Single<List<MtgCard>> {
@@ -67,9 +67,7 @@ class CardRepositoryImpl(
     }
 
     private fun parseJson(reader: JsonReader): List<MtgCard>? {
-
         return try {
-
             val list = mutableListOf<MtgCard>()
 
             reader.beginArray()
@@ -79,7 +77,7 @@ class CardRepositoryImpl(
             while (reader.hasNext()) {
                 val card = gson.fromJson<ScryfallCard>(
                     reader,
-                    ScryfallCard::class.java
+                    ScryfallCard::class.java,
                 )
                 if (card.legalities.legacy == "legal") {
                     val cardType = card.type_line
@@ -98,10 +96,11 @@ class CardRepositoryImpl(
                                     card.image_uris?.border_crop,
                                     cardType,
                                     card.collector_number,
-                                    CardType.CREATURE
-                                )
+                                    CardType.CREATURE,
+                                ),
                             )
                         }
+
                         cardType.contains("Artifact") -> {
                             list.add(
                                 MtgCard(
@@ -116,10 +115,11 @@ class CardRepositoryImpl(
                                     card.image_uris?.border_crop,
                                     cardType,
                                     card.collector_number,
-                                    CardType.ARTIFACT
-                                )
+                                    CardType.ARTIFACT,
+                                ),
                             )
                         }
+
                         cardType.contains("Enchantment") -> {
                             list.add(
                                 MtgCard(
@@ -134,10 +134,11 @@ class CardRepositoryImpl(
                                     card.image_uris?.border_crop,
                                     cardType,
                                     card.collector_number,
-                                    CardType.ENCHANTMENT
-                                )
+                                    CardType.ENCHANTMENT,
+                                ),
                             )
                         }
+
                         cardType.contains("Instant") -> {
                             list.add(
                                 MtgCard(
@@ -152,10 +153,11 @@ class CardRepositoryImpl(
                                     card.image_uris?.border_crop,
                                     cardType,
                                     card.collector_number,
-                                    CardType.INSTANT
-                                )
+                                    CardType.INSTANT,
+                                ),
                             )
                         }
+
                         cardType.contains("Sorcery") -> {
                             list.add(
                                 MtgCard(
@@ -170,10 +172,11 @@ class CardRepositoryImpl(
                                     card.image_uris?.border_crop,
                                     cardType,
                                     card.collector_number,
-                                    CardType.SORCERY
-                                )
+                                    CardType.SORCERY,
+                                ),
                             )
                         }
+
                         cardType.contains("Land") -> {
                             list.add(
                                 MtgCard(
@@ -188,10 +191,11 @@ class CardRepositoryImpl(
                                     card.image_uris?.border_crop,
                                     cardType,
                                     card.collector_number,
-                                    CardType.LAND
-                                )
+                                    CardType.LAND,
+                                ),
                             )
                         }
+
                         cardType.contains("Planeswalker") -> {
                             list.add(
                                 MtgCard(
@@ -206,10 +210,11 @@ class CardRepositoryImpl(
                                     card.image_uris?.border_crop,
                                     cardType,
                                     card.collector_number,
-                                    CardType.PLANESWALKER
-                                )
+                                    CardType.PLANESWALKER,
+                                ),
                             )
                         }
+
                         else -> {
                             list.add(
                                 MtgCard(
@@ -224,8 +229,8 @@ class CardRepositoryImpl(
                                     card.image_uris?.border_crop,
                                     cardType,
                                     card.collector_number,
-                                    CardType.OTHER
-                                )
+                                    CardType.OTHER,
+                                ),
                             )
                         }
                     }

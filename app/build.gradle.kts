@@ -85,8 +85,7 @@ dependencies {
     kapt("androidx.room:room-compiler:$room_version")
     implementation("androidx.room:room-rxjava3:$room_version")
     // koin
-    implementation("org.koin:koin-androidx-viewmodel:2.2.2")
-    implementation("org.koin:koin-androidx-scope:2.2.2")
+    implementation("io.insert-koin:koin-androidx-compose:3.5.0")
     // retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:adapter-rxjava3:2.9.0")

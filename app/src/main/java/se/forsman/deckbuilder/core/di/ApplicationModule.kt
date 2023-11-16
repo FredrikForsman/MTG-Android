@@ -6,6 +6,7 @@ import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -61,6 +62,11 @@ private fun provideRetrofit(okHttpClient: OkHttpClient, baseUrl: String): Retrof
 
 fun provideOkHttpClient(): OkHttpClient {
     return OkHttpClient.Builder()
+//        .addInterceptor(
+//            HttpLoggingInterceptor().apply {
+//                level = HttpLoggingInterceptor.Level.BODY
+//            },
+//        )
         .connectTimeout(60L, TimeUnit.SECONDS)
         .readTimeout(60L, TimeUnit.SECONDS)
         .build()

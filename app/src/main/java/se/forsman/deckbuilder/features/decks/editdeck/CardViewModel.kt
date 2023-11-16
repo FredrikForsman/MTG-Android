@@ -1,10 +1,10 @@
 package se.forsman.deckbuilder.features.decks.editdeck
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import se.forsman.deckbuilder.core.app.BaseViewModel
 import se.forsman.deckbuilder.core.exception.Failure
 import se.forsman.deckbuilder.features.search.CardRepository
@@ -13,8 +13,8 @@ import se.forsman.deckbuilder.features.search.model.SearchFilter
 
 class CardViewModel(private val cardRepository: CardRepository) : BaseViewModel() {
 
-    private val _cards = MutableLiveData<List<MtgCard>>()
-    val cards: LiveData<List<MtgCard>> = _cards
+    private val _cards = MutableStateFlow<List<MtgCard>>(emptyList())
+    val cards: StateFlow<List<MtgCard>> = _cards
 
     private val compositeDisposable = CompositeDisposable()
 
