@@ -5,11 +5,15 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -22,9 +26,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import org.koin.androidx.compose.koinViewModel
+import androidx.hilt.navigation.compose.hiltViewModel
+import coil.compose.AsyncImage
+import dagger.hilt.android.lifecycle.HiltViewModel
 import se.forsman.deckbuilder.R
 import se.forsman.deckbuilder.features.decks.Deck
+import se.forsman.deckbuilder.features.decks.editdeck.CardViewModel
+import se.forsman.deckbuilder.features.search.model.MtgCard
 
 @Composable
 fun MyDecksScreen(decks: List<Deck>, createNewDeckCallback: () -> Unit) {
@@ -52,9 +60,14 @@ fun MyDecksScreen(decks: List<Deck>, createNewDeckCallback: () -> Unit) {
 
 @Composable
 fun CreateNewDeck(
-    createDeckViewModel: CreateDeckViewModel = koinViewModel(),
+    createDeckViewModel: CreateDeckViewModel = hiltViewModel(),
+    cardViewModel: CardViewModel = hiltViewModel(),
     newDeckCreatedCallback: (Long) -> Unit,
 ) {
+    LaunchedEffect(true) {
+        cardViewModel.loadCards()
+    }
+    val cards = cardViewModel.cards.collectAsState()
     val deckCreatedState = createDeckViewModel.state.collectAsState()
     if (deckCreatedState.value is DeckCreationState.Success) {
         newDeckCreatedCallback.invoke((deckCreatedState.value as DeckCreationState.Success).deckId)
@@ -75,6 +88,7 @@ fun CreateNewDeck(
             singleLine = true,
             label = { Text(text = "Enter your decks name") },
         )
+        Cards(cards.value)
         Button(
             onClick = {
                 createDeckViewModel.createDeck(
@@ -92,17 +106,17 @@ fun CreateNewDeck(
     }
 }
 
-// @Composable
-// private fun Cards(cards: List<MtgCard>?) {
-//    LazyVerticalGrid(columns = GridCells.Fixed(3)) {
-//        cards?.let {
-//            items(it) { card ->
-//                AsyncImage(
-//                    model = card.imageUrl,
-//                    contentDescription = card.name,
-//                    placeholder = painterResource(id = R.drawable.card_back),
-//                )
-//            }
-//        }
-//    }
-// }
+ @Composable
+ private fun Cards(cards: List<MtgCard>?) {
+    LazyVerticalGrid(columns = GridCells.Fixed(3)) {
+        cards?.let {
+            items(it) { card ->
+                AsyncImage(
+                    model = card.imageUrl,
+                    contentDescription = card.name,
+                    placeholder = painterResource(id = R.drawable.card_back),
+                )
+            }
+        }
+    }
+ }

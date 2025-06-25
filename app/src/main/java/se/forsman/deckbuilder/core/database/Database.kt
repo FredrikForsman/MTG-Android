@@ -24,7 +24,7 @@ abstract class Database : RoomDatabase() {
     abstract fun scryfallDao(): CardDao
 }
 
-class Converter {
+object Converter {
 
     @TypeConverter
     fun fromMagicCards(cards: List<String>?): String? {
@@ -47,7 +47,7 @@ class Converter {
     }
 }
 
-class CardConverter {
+object CardConverter {
 
     @TypeConverter
     fun fromMagicCards(cards: List<MtgCard>?): String? {

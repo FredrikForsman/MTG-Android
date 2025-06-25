@@ -3,7 +3,6 @@ package se.forsman.deckbuilder.features.search.model
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverter
-import androidx.room.TypeConverters
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import com.google.gson.reflect.TypeToken
@@ -34,7 +33,6 @@ data class MtgCard(
     @field:SerializedName("collector_number")
     val collectorNumber: String?,
     @field:SerializedName("card_type")
-    @TypeConverters(CardTypeConverter::class)
     val cardType: CardType?
 )
 
@@ -49,7 +47,7 @@ enum class CardType(val value: Int) {
     OTHER(6)
 }
 
-class CardTypeConverter {
+object CardTypeConverter {
 
     @TypeConverter
     fun fromCardType(cardType: CardType?): String? {

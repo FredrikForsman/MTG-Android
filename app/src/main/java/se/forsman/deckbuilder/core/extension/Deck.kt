@@ -37,14 +37,8 @@ fun Deck.addCardIfPossible(card: MtgCard): Deck? {
     val occurrences = Collections.frequency(this.cards, card)
     return card.typeLine?.let { type ->
         when {
-            type.startsWith("Basic") -> {
-                this.cards.add(card)
-                this
-            }
-            occurrences < 4 -> {
-                this.cards.add(card)
-                this
-            }
+            type.startsWith("Basic") -> this.copy(cards = this.cards + card)
+            occurrences < 4 -> this.copy(cards = this.cards + card)
             else -> null
         }
     }

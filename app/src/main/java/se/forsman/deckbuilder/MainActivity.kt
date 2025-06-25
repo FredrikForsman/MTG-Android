@@ -2,9 +2,10 @@ package se.forsman.deckbuilder
 
 import android.os.Bundle
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.Surface
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
@@ -12,27 +13,28 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import org.koin.androidx.compose.koinViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.lifecycle.HiltViewModel
 import se.forsman.deckbuilder.core.app.Routing
+import se.forsman.deckbuilder.features.decks.Deck
 import se.forsman.deckbuilder.features.decks.DeckViewModel
 import se.forsman.deckbuilder.features.decks.mydecks.CreateNewDeck
 import se.forsman.deckbuilder.features.decks.mydecks.MyDecksScreen
 import se.forsman.deckbuilder.features.splash.SplashScreen
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
+    private val deckViewModel: DeckViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
         initView()
     }
 
     private fun initView() {
         setContent {
             Surface {
-                val deckViewModel: DeckViewModel = koinViewModel()
                 val decks = deckViewModel.decks.collectAsState()
                 val navController = rememberNavController()
 

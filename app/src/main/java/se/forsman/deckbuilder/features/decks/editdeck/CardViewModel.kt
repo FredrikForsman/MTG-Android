@@ -1,5 +1,6 @@
 package se.forsman.deckbuilder.features.decks.editdeck
 
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -10,8 +11,11 @@ import se.forsman.deckbuilder.core.exception.Failure
 import se.forsman.deckbuilder.features.search.CardRepository
 import se.forsman.deckbuilder.features.search.model.MtgCard
 import se.forsman.deckbuilder.features.search.model.SearchFilter
+import javax.inject.Inject
 
-class CardViewModel(private val cardRepository: CardRepository) : BaseViewModel() {
+@HiltViewModel
+class CardViewModel @Inject constructor(private val cardRepository: CardRepository) :
+    BaseViewModel() {
 
     private val _cards = MutableStateFlow<List<MtgCard>>(emptyList())
     val cards: StateFlow<List<MtgCard>> = _cards

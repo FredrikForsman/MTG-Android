@@ -10,8 +10,10 @@ import se.forsman.deckbuilder.features.search.model.ScryfallCard
 import se.forsman.deckbuilder.features.search.model.SearchFilter
 import se.forsman.deckbuilder.features.search.scryfall.CardService
 import se.forsman.deckbuilder.features.search.scryfall.Symbology
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class CardRepositoryImpl(
+class CardRepositoryImpl @Inject constructor(
     private val cardService: CardService,
     private val cardDao: CardDao,
     private val gson: Gson,

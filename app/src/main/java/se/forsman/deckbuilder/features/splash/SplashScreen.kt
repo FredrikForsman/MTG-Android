@@ -12,13 +12,13 @@ import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import org.koin.androidx.compose.koinViewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import se.forsman.deckbuilder.R
 import se.forsman.deckbuilder.features.decks.editdeck.CardViewModel
 
 @Composable
 fun SplashScreen(
-    viewModel: CardViewModel = koinViewModel(),
+    viewModel: CardViewModel = hiltViewModel(),
     cardsLoadedCallback: () -> Unit,
 ) {
     val cards = viewModel.cards.collectAsState()

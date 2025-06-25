@@ -2,8 +2,11 @@ package se.forsman.deckbuilder.features.decks
 
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class DeckRepositoryImpl(private val deckDao: DeckDao) : DeckRepository {
+@Singleton
+class DeckRepositoryImpl @Inject constructor(private val deckDao: DeckDao) : DeckRepository {
 
     override fun getDecks(): Single<List<Deck>> {
         return deckDao.getDecks()

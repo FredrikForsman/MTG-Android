@@ -1,5 +1,6 @@
 package se.forsman.deckbuilder.features.decks.mydecks
 
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -8,8 +9,11 @@ import kotlinx.coroutines.flow.StateFlow
 import se.forsman.deckbuilder.core.app.BaseViewModel
 import se.forsman.deckbuilder.features.decks.Deck
 import se.forsman.deckbuilder.features.decks.DeckRepository
+import javax.inject.Inject
 
-class CreateDeckViewModel(private val deckRepository: DeckRepository) : BaseViewModel() {
+@HiltViewModel
+class CreateDeckViewModel @Inject constructor(private val deckRepository: DeckRepository) :
+    BaseViewModel() {
 
     private val _state = MutableStateFlow<DeckCreationState>(DeckCreationState.Loading)
     val state: StateFlow<DeckCreationState> = _state
