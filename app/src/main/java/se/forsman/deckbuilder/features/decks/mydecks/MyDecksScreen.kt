@@ -1,10 +1,19 @@
 package se.forsman.deckbuilder.features.decks.mydecks
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -23,6 +32,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -106,17 +116,32 @@ fun CreateNewDeck(
     }
 }
 
+ @SuppressLint("UnusedBoxWithConstraintsScope")
  @Composable
  private fun Cards(cards: List<MtgCard>?) {
-    LazyVerticalGrid(columns = GridCells.Fixed(3)) {
-        cards?.let {
-            items(it) { card ->
-                AsyncImage(
-                    model = card.imageUrl,
-                    contentDescription = card.name,
-                    placeholder = painterResource(id = R.drawable.card_back),
-                )
-            }
-        }
-    }
+     LazyVerticalGrid(
+         columns = GridCells.Fixed(3),
+         contentPadding = PaddingValues(16.dp),
+         verticalArrangement = Arrangement.spacedBy(16.dp),
+         horizontalArrangement = Arrangement.spacedBy(16.dp)
+     ) {
+         cards?.let {
+             items(it) { card ->
+                 BoxWithConstraints(
+                     modifier = Modifier
+                         .fillMaxWidth()
+                         .aspectRatio(0.714f) // Maintain card aspect ratio
+                 ) {
+                     AsyncImage(
+                         model = card.imageUrl,
+                         contentDescription = card.name,
+                         modifier = Modifier.fillMaxSize(),
+                         contentScale = ContentScale.Crop, // or FillBounds, depending on preference
+                         placeholder = painterResource(id = R.drawable.card_back),
+                     )
+                 }
+             }
+         }
+     }
+
  }
